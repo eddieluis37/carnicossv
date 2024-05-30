@@ -1,0 +1,47 @@
+@page {
+    size: 72.1mm 297mm; /* Establece el tamaño de la página a 50 cm de largo por 25 cm de ancho */
+    margin-top: 3px;
+    margin-left: 27px;
+    margin-right: 17px;
+   /*  margin-bottom: 0px; */
+}
+
+body {
+  /*   min-height: 100vh;
+    max-width: 1000px; */
+    /*   background-color: rgb(234, 185, 185);  */
+/*     margin: 0 auto; */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 16pt;
+    font-weight: normal;
+    line-height: 1.0;
+      color: #111111;
+}
+
+table {
+    font-size: 11px;
+    margin: 0 !important;
+}
+
+/* .header h1 {
+    margin-right: 300px;
+} */
+
+/* .footer {
+    bottom: 15px;
+    font-size: 7pt;
+    color: #333333;
+    border-top: 1px solid #1f1f1f;
+    z-index: 1000;
+}
+footer {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    height: 60px;
+    margin-top: -60px;
+} */
+
+.pagenum:before {
+    content: counter(page);
+}
