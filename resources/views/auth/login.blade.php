@@ -28,7 +28,7 @@
                     <div class="form-content">
 
                         <h1 class="text-center"><span class="brand-name"><b>SOFTWARE E.R.P</b></span></h1>
-                        <h1 class="text-center"><span class="brand-name">PURACARNES S.A.S</span></h1>
+                        <h1 class="text-center"><span class="brand-name">CARNICOS S.V</span></h1>
                         <form class="text-left mt-5" action="{{ route('login') }}" method="POST">
                             @csrf
                             <div class="form">
