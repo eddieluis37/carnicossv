@@ -90,7 +90,7 @@
                             -->
                             </div>
                         </form>
-                        <p class="terms-conditions text-center">© 2023 All Rights Reserved. <a href="https://www.puracarnes.com" target="_blank">PuraCarnes S.A.S</a> <br>versión 1.0 </p>
+                        <p class="terms-conditions text-center">© 2024 All Rights Reserved. <a href="https://www.puracarnes.com" target="_blank">Carnicos S.V</a> <br>versión 1.0 </p>
 
                     </div>
                 </div>
