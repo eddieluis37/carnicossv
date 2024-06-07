@@ -98,13 +98,35 @@
         </div>
 
         <div class="form-container">
+            <!DOCTYPE html>
+            <html>
+
+            <head>
+                <style>
+                    .logo {
+                        font-family: Arial, sans-serif;
+                        font-size: 99px;
+                        font-weight: bold;
+                        text-transform: capitalize;
+                        background: linear-gradient(to right, blue, red, yellow);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                    }
+                </style>
+            </head>
+
+            <body>
+                <div class="logo">Carnicos_SV</div>
+            </body>
+
+            </html>
             <div class="form-form">
                 <div class="form-form-wrap">
                     <div class="form-container">
                         <div class="form-content">
                             <div class="form-image">
                                 <a href="https://puracarnes.co" target="_blank">
-                                    <div class="navbar-brand brand-logo-mini" style="margin:-100px;"><img src="{{asset('assets/img/logo65.png')}}" alt=" logo" />
+                                    <div class="navbar-brand brand-logo-mini" style="margin:-100px;"><img src="{{asset('assets/img/CSV.png')}}" alt=" logo" />
 
                                     </div>
                                 </a>
@@ -116,28 +138,7 @@
             </div>
         </div>
 
-        <!DOCTYPE html>
-        <html>
 
-        <head>
-            <style>
-                .logo {
-                    font-family: Arial, sans-serif;
-                    font-size: 124px;
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    background: linear-gradient(to right, blue, red, yellow);
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                }
-            </style>
-        </head>
-
-        <body>
-            <div class="logo">SPT</div>
-        </body>
-
-        </html>
 
 </body>
 
