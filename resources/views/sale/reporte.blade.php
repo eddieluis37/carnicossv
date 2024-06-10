@@ -25,7 +25,7 @@
 		<table cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 				<td class="text-center">
-					<span style="font-size: 17px; font-weight: bold; display: block; margin: 0;">PURACARNES SAS</span>
+					<span style="font-size: 17px; font-weight: bold; display: block; margin: 0;">CARNICOS SV SAS</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 2;">901.531.807-3</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">AUTOPISTA SUR 66 78 LC B 22</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">FRIGORIFICO GUADALUPE</span>
@@ -37,7 +37,7 @@
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">Responsable de IVA</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">Actividad Economica 4620 Tartifa</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">11.04 Maquina</span>
-					<img src="{{ asset('assets/img/logo65.png') }}" alt="" class="invoice-logo" width="33%" style="padding-top: -70px; position: relative">
+					<img src="{{ asset('assets/img/CSV-TRANSP.png') }}" alt="" class="invoice-logo" width="33%" style="padding-top: -70px; position: relative">
 				</td>
 			</tr>
 			<tr>
