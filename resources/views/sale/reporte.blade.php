@@ -45,7 +45,7 @@
 			</tr>
 			<tr>
 				<td colspan=" 2" class="">
-					<span style="font-size: 13px; font-weight: bold; display: block; margin-top: 10;">Sistema POS: {{$sale[0]->resolucion}}</span>
+					<span style="font-size: 13px; font-weight: bold; display: block; margin-top: -2;">Sistema POS: {{$sale[0]->resolucion}}</span>
 				</td>
 			</tr>
 			<tr>
