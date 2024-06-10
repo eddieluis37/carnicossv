@@ -26,17 +26,17 @@
 			<tr>
 				<td class="text-center">
 					<span style="font-size: 17px; font-weight: bold; display: block; margin: 0;">CARNICOS SV SAS</span>
-					<span style="font-size: 11px; font-weight: bold; display: block; margin: 2;">901.531.807-3</span>
-					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">AUTOPISTA SUR 66 78 LC B 22</span>
-					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">FRIGORIFICO GUADALUPE</span>
-					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">Bogotá - Tels: 01-9502998</span>
+					<span style="font-size: 11px; font-weight: bold; display: block; margin: 2;">901.836.683-7</span>
+					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">TV 76 # 82C - 97</span>
+					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">FRIGORIFICO ENGATIVA</span>
+					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">Bogotá - Tels: 01-3178302986</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">Resolución DIAN 18764064061708</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">Autorizada el: 2024/01/20 :</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">Prefijo ERPC Del 1 AL 10000</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">Vigencia: 6</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">Responsable de IVA</span>
 					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">Actividad Economica 4620 Tartifa</span>
-					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">11.04 Maquina</span>
+					<span style="font-size: 11px; font-weight: bold; display: block; margin: 0;">11.04 Maquina carnicossv@gmail.com</span>
 					<img src="{{ asset('assets/img/CSV-TRANSP.png') }}" alt="" class="invoice-logo" width="33%" style="padding-top: -70px; position: relative">
 				</td>
 			</tr>
