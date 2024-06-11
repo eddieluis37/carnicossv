@@ -3,7 +3,7 @@
         <ul class="navbar-item flex-row">
             <li class="nav-item theme-logo">
                 <a href="{{ route('login') }}">
-                    <img src="{{asset('assets/img/logo.jpg')}}" class="navbar-logo" alt="logo">
+                    <img src="{{asset('assets/img/Logo_CSV3.png')}}" class="navbar-logo" alt="logo">
                 </a>
             </li>
 
@@ -71,7 +71,7 @@
 
             <li class="nav-item dropdown user-profile-dropdown  order-lg-0 order-1">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="{{asset('assets/img/logo.jpg')}}" alt="admin-profile" class="img-fluid">
+                    <img src="{{asset('assets/img/Logo_CSV3.png')}}" alt="admin-profile" class="img-fluid">
                 </a>
                 <div class="dropdown-menu position-absolute animated fadeInUp" aria-labelledby="userProfileDropdown">
                     <div class="user-profile-section">
@@ -79,7 +79,7 @@
                             <img src="{{asset('assets/img/logo.jpg')}}" class="img-fluid mr-2" alt="avatar">
                             <div class="media-body">
                                 <h5>@guest Eddie Luis @else {{Auth()->user()->name}} @endguest</h5>
-                                <p>PuraCarnes</p>
+                                <p>Carnicos SV SAS</p>
                             </div>
                         </div>
                     </div>
