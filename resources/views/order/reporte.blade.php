@@ -23,14 +23,17 @@
 		<table cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 				<td colspan="2" class="text-center">
-					<img src="{{ asset('assets/img/logo65.png') }}" alt="" class="invoice-logo" width="9%" style="vertical-align: top; padding-top: -100px; position: relative">
-					<span style="font-size: 9px; font-weight: bold; display: block; margin: 0;">PURACARNES SAS</span>
+					
+					<span style="font-size: 9px; font-weight: bold; display: block; margin: 0;">CARNICOS SV SAS</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">Nit 901.531.807-3</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">AUTOPISTA SUR 66 78 LC B 22 FRIGORIFICO GUADALUPE</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">Bogotá - Tel. (601) 9502998</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">contabilidad@puracarnes.com</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">www.puracarnes.com</span>					
 				</td>
+				<th>
+				<img src="{{ asset('assets/img/Logo_CSV3.png') }}" alt="" class="invoice-logo" width="50%" style="vertical-align: top; padding-top: 5px; position: relative">
+				</th>
 
 			</tr>
 			<tr>
@@ -68,14 +71,14 @@
 						{{-- Display "Pendiente" if status is 0 --}}
 						<strong>{{ $order[0]->status == 1 ? 'Cerrada' : 'Pendiente' }}</strong>
 					</span>
-					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 2;">Items:<strong>{{$order->sum('items')}}</strong></span>
+					<span style="font-size: 11px; font-weight: lighter; display: block; margin: 2;">Items:<strong>{{$order->sum('items')}}</strong></span>
 				</td>
 
 			</tr>
 		</table>
 	</section>
 
-	<section style="margin-top: 37px">
+	<section style="margin-top: 15px">
 		<table cellpadding="0" cellspacing="0" class="table-items" width="100%">
 			<thead>
 				<tr>
