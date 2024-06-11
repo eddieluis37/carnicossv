@@ -36,7 +36,7 @@ class ReportsOrdersController extends Component
         $this->OrderById();
 
         return view('livewire.reports_orders.component', [
-            'inicio' => Order::where('id', '>', 500)
+            'inicio' => Order::where('id', '>', 0)
             ->orderBy('id', 'asc')->get(),
             'final' => Order::orderBy('id', 'desc')->get()
         ])->extends('layouts.theme.app')
