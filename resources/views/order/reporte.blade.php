@@ -32,7 +32,7 @@
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">www.puracarnes.com</span>					
 				</td>
 				<th>
-				<img src="{{ asset('assets/img/Logo_CSV3.png') }}" alt="" class="invoice-logo" width="50%" style="vertical-align: top; padding-top: 5px; position: relative">
+				<img src="{{ asset('assets/img/Logo_CSV2.png') }}" alt="" class="invoice-logo" width="50%" style="vertical-align: top; padding-top: 5px; position: relative">
 				</th>
 
 			</tr>
