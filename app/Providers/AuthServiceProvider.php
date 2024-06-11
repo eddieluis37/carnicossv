@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('open-order', function ($user) {
+            // Lógica para determinar si el usuario tiene permiso para abrir pedidos
+            return $user->hasPermissionTo('open-order');
+        });
     }
 }

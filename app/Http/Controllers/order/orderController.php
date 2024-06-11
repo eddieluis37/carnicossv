@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Yajra\Datatables\Datatables;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
 
 
 class orderController extends Controller
@@ -114,7 +115,7 @@ class orderController extends Controller
 						    <i class="fas fa-directions"></i>
 					    </a>
 					   
-                        <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="VerOrdenPendiente" target="_blank">
+                        <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="PdfOrdenPendiente" target="_blank">
                         <i class="far fa-file-pdf"></i>
 					    </a>
 					  
@@ -122,21 +123,24 @@ class orderController extends Controller
                         ';
                     //ESTADO Cerrada
                 } else {
-                    $btn = '
-                        <div class="text-center">
-                        <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="VerOrdenCerradaAntesFechaCierre" target="_blank">
-                        <i class="far fa-file-pdf"></i>
-					    </a>
-                        
-                        <a href="order/reopen/' . $data->id . '" class="btn btn-dark" title="Abrir pedido" target="_blank">
-                        <i class="fas fa-box-open"></i>
-					    </a>				   
-					  
-                        </div>
+
+                    if (Gate::allows('open-order')) {
+                        $btn = '
+                            <div class="text-center">
+                                <a href="order/reopen/' . $data->id . '" class="btn btn-dark" title="Abrir pedido" target="_blank">
+                                    <i class="fas fa-box-open"></i> <!-- Icono que representa la apertura de un pedido -->
+                                </a>
+                                <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="Pdf pedido cerrado" target="_blank">
+                                   <i class="fas fa-file-pdf"></i> <!-- Icono que representa la apertura de un pedido -->
+                                </a>
+                            </div>                         
                         ';
+                    }
                 }
+
                 return $btn;
             })
+
             ->rawColumns(['status', 'date', 'action'])
             ->make(true);
     }
@@ -629,62 +633,22 @@ class orderController extends Controller
 
     public function reopen(Request $request, $id)
     {
-        $venta = Order::find($id);
-        $prod = Product::Where([
-
-            ['status', 1]
-        ])
-            ->orderBy('category_id', 'asc')
-            ->orderBy('name', 'asc')
-            ->get();
-        /*     $ventasdetalle = $this->getventasdetalle($id, $venta->centrocosto_id); */
-        $arrayTotales = $this->sumTotales($id);
-
-        $datacompensado = DB::table('orders as or')
-            ->join('thirds as tird', 'or.third_id', '=', 'tird.id')
-            ->join('centro_costo as centro', 'or.centrocosto_id', '=', 'centro.id')
-            ->select('or.*', 'tird.name as namethird', 'centro.name as namecentrocosto', 'tird.porc_descuento')
-            ->where('or.id', $id)
-            ->get();
-
-
-        $status = '';
-        $fechaCompensadoCierre = Carbon::parse($datacompensado[0]->fecha_cierre);
-        $date = Carbon::now();
-        $currentDate = Carbon::parse($date->format('Y-m-d'));
-        if ($currentDate->gt($fechaCompensadoCierre)) {
-            //'Date 1 is greater than Date 2';
-            $status = 'false';
-        } elseif ($currentDate->lt($fechaCompensadoCierre)) {
-            //'Date 1 is less than Date 2';
-            $status = 'true';
-        } else {
-            //'Date 1 and Date 2 are equal';
-            $status = 'false';
-        }
-
-
-        $detalleVenta = $this->getventasdetail($id);
-
-
-
         $status = '0'; //1 = pagado       
 
         try {
 
             $venta = Order::where('id', $id)->latest()->first(); // el ultimo mas reciente;
             $venta->user_id = $request->user()->id;
-     
+
 
             $venta->status = $status;
             $venta->fecha_cierre = now()->addDays(2);
             $venta->save();
 
 
-            if ($venta->status == 0) {  
+            if ($venta->status == 0) {
                 return redirect()->route('order.index');
             }
-            
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 0,
@@ -692,6 +656,7 @@ class orderController extends Controller
             ]);
         }
 
-        //    return $this->index();          
+        //    return $this->index();      
+            
     }
 }
