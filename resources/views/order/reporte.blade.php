@@ -110,16 +110,16 @@
 
 					<td align="center">{{$item->quantity}}</td>
 					<td></td>
-					<td align="right">{{number_format($item->price),2}}</td>
-					<td align="right">{{number_format($item->total_bruto),2}}</td>
-					<td align="right">{{number_format($item->total_costo),2}}</td>
-					<td align="right">{{number_format($item->utilidad),2}}</td>
+					<td align="right">{{number_format($item->price ,0, ',', '.' )}}</td>
+					<td align="right">{{number_format($item->total_bruto ,0, ',', '.' )}}</td>
+					<td align="right">{{number_format($item->total_costo ,0, ',', '.' )}}</td>
+					<td align="right">{{number_format($item->utilidad ,0, ',', '.' )}}</td>
 					<td align="center">{{$item->porc_utilidad}}</td>
 					<td align="center">{{$item->porc_iva}}</td>
-					<td align="right">{{number_format($item->iva),2}}</td>
+					<td align="right">{{number_format($item->iva ,0, ',', '.' )}}</td>
 					<td align="center">{{$item->porc_otro_impuesto}}</td>
-					<td align="right">{{number_format($item->otro_impuesto),2}}</td>
-					<td align="right">{{number_format($item->total),2}}</td>
+					<td align="right">{{number_format($item->otro_impuesto ,0, ',', '.' )}}</td>
+					<td align="right">{{number_format($item->total ,0, ',', '.' )}}</td>
 					<td style="text-align: left;">
 						<span style="font-size: smaller; text-transform: uppercase;">{{$item->observaciones}}</span>
 					</td>
