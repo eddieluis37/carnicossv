@@ -23,24 +23,24 @@
 		<table cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 				<td colspan="2" class="text-center">
-					
+
 					<span style="font-size: 9px; font-weight: bold; display: block; margin: 0;">CARNICOS SV SAS</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">Nit 901.531.807-3</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">AUTOPISTA SUR 66 78 LC B 22 FRIGORIFICO GUADALUPE</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">Bogotá - Tel. (601) 9502998</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">contabilidad@puracarnes.com</span>
-					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">www.puracarnes.com</span>					
+					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">www.puracarnes.com</span>
 				</td>
-				<th>
-				<img src="{{ asset('assets/img/Logo_CSV2.png') }}" alt="" class="invoice-logo" width="50%" style="vertical-align: top; padding-top: 5px; position: relative">
-				</th>
+				<td>
+					<img src="{{ asset('assets/img/Logo_CSV2.png') }}" alt="" class="invoice-logo" width="50%" style="vertical-align: top; padding-top: 1px; position: relative">
+				</td>
 
 			</tr>
 			<tr>
 				<td colspan=" 2" class="text-center">
 					<span style="font-size: 9px; font-weight: bold; display: block; margin-top: 10;">CENTRO COSTO: {{$order[0]->namecentrocosto}} | Digitador: {{$order[0]->nameuser}}</span>
 					<span style="font-size: 9px; font-weight: bold; display: block; margin: 0;">N°. ORDEN DE PEDIDO {{$order[0]->resolucion}} | Alistador: {{$order[0]->nombre_alistador}} |
-					SUBCENTRO DE COSTO: <strong> {{$order[0]->subcentro}}</strong></span>
+						SUBCENTRO DE COSTO: <strong> {{$order[0]->subcentro}}</strong></span>
 				</td>
 			</tr>
 			<tr>
@@ -49,14 +49,14 @@
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">VENDEDOR:<strong> {{$order[0]->nombre_vendedor}}</strong></span>
 					<span style="font-size: 11px; font-weight: lighter; display: block; margin: 2;">CLIENTE:<strong> {{$order[0]->namethird}}</strong></span>
 					<span style="font-size: 11px; font-weight: lighter; display: block; margin: 2;">Correo:<strong> {{$order[0]->correo}}</strong></span>
-					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">NIT / C.C.:<strong> {{ number_format($order[0]->identification, 0, ',', '.')}}</strong></span>					
+					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">NIT / C.C.:<strong> {{ number_format($order[0]->identification, 0, ',', '.')}}</strong></span>
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">DIRECCIÓN:<strong> {{$order[0]->direccion}}</strong></span>
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">CELULAR:<strong> {{$order[0]->celular}}</strong></span>
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">METODO DE PAGO:<strong> {{$order[0]->forma_pago}}</strong></span>
 					<span style="font-size: 11px; font-weight: lighter; display: block; margin: 2;">
 						FECHA DE ENTREGA:
-						<strong>												
-							{{ \Carbon\Carbon::parse($order[0]->fecha_entrega)->isoFormat('dddd, D [de] MMMM [de] YYYY') }}						
+						<strong>
+							{{ \Carbon\Carbon::parse($order[0]->fecha_entrega)->isoFormat('dddd, D [de] MMMM [de] YYYY') }}
 						</strong>
 					</span>
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">
