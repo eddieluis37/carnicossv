@@ -504,8 +504,9 @@ Route::group(['middleware' => [('auth')]], function () {
     Route::get('order/create/{id}', [orderController::class, 'create'])->name('order.create');
     Route::get('order/reopen/{id}', [orderController::class, 'reopen'])->name('order.reopen');
     Route::post('ordersavedetail', [orderController::class, 'savedetail'])->name('order.savedetail');
-    Route::post('orderById', [orderController::class, 'editOrder'])->name('order.editOrder');
-    Route::post('orderdown', [orderController::class, 'destroy'])->name('order.down');
+    Route::post('orderById', [orderController::class, 'editOrder'])->name('order.editOrder');    
+    Route::get('downOrder/{id}', [orderController::class, 'destroy'])->name('order.destroy');
+    Route::post('orderdown', [orderController::class, 'destroyDetail'])->name('order.down');
     Route::get('/order-obtener-valores', [orderController::class, 'obtenerValores'])->name('order.order-obtener-valores');
     Route::post('order/create/registrar_order/{id}', [orderController::class, 'storeOrder'])->name('order.saveOrder');
     Route::get('order/showPDFOrder/{id}', [pdfOrderController::class, 'showPDFOrder'])->name('order.showPDFOrder');

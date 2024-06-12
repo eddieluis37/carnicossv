@@ -72,7 +72,8 @@ class orderController extends Controller
             ->leftJoin('centro_costo as centro', 'or.centrocosto_id', '=', 'centro.id')
             ->join('thirds as vendedor', 'or.vendedor_id', '=', 'vendedor.id')
             ->select('or.*', 'or.status as status', 'total_valor_a_pagar', 'fecha_order', 'tird.direccion as direccion', 'or.resolucion as resolucion', 'tird.name as namethird', 'centro.name as namecentrocosto', 'total_utilidad', 'vendedor.name as nombre_vendedor')
-            /*  ->where('or.status', 1) */
+            ->where('or.status', '=', '0') // Filtro para ordenes abiertas
+            ->orWhere('or.status', '=', '1') // Filtro para ordenes cerradas
             ->get();
 
 
@@ -118,7 +119,9 @@ class orderController extends Controller
                         <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="PdfOrdenPendiente" target="_blank">
                         <i class="far fa-file-pdf"></i>
 					    </a>
-					  
+                        <button class="btn btn-dark" title="Borrar Beneficio" onclick="Confirm(' . $data->id . ');">
+						    <i class="fas fa-trash"></i>
+					    </button>					  
                         </div>
                         ';
                     //ESTADO Cerrada
@@ -209,23 +212,7 @@ class orderController extends Controller
                 $venta->items = 0;
                 $venta->observacion = $request->observacion;
                 $venta->save();
-                /* //ACTUALIZA CONSECUTIVO 
-                $idcc = $request->centrocosto;
-                DB::update(
-                    "
-        UPDATE notacreditos a,    
-        (
-            SELECT @numeroConsecutivo:= (SELECT (COALESCE (max(consec),0) ) FROM sales where centrocosto_id = :vcentrocosto1 ),
-            @documento:= (SELECT MAX(prefijo) FROM centro_costo where id = :vcentrocosto2 )
-        ) as tabla
-        SET a.consecutivo =  CONCAT( @documento,  LPAD( (@numeroConsecutivo:=@numeroConsecutivo + 1),5,'0' ) ),
-            a.consec = @numeroConsecutivo
-        WHERE a.consecutivo is null",
-                    [
-                        'vcentrocosto1' => $idcc,
-                        'vcentrocosto2' => $idcc
-                    ]
-                ); */
+
                 return response()->json([
                     'status' => 1,
                     'message' => 'Guardado correctamente',
@@ -288,22 +275,6 @@ class orderController extends Controller
         return view('order.create', compact('datacompensado', 'id', 'prod', 'detalleVenta', 'arrayTotales', 'status'));
     }
 
-    /* public function getventasdetalle($ventaId, $centrocostoId)
-    {
-        $detail = DB::table('order_details as dv')
-            ->join('products as pro', 'dv.product_id', '=', 'pro.id')
-            ->join('centro_costo_products as ce', 'pro.id', '=', 'ce.products_id')
-            ->select('dv.*', 'pro.name as nameprod', 'pro.code',  'ce.fisico')
-            ->selectRaw('ce.invinicial + ce.compraLote + ce.alistamiento +
-            ce.compensados + ce.trasladoing - (ce.venta + ce.trasladosal) stock')
-            ->where([
-                ['ce.centrocosto_id', $centrocostoId],
-                ['dv.order_id', $ventaId],
-            ])->orderBy('dv.id', 'DESC')->get();
-
-        return $detail;
-    }
- */
     public function sumTotales($id)
     {
         $TotalBrutoSinDescuento = Order::where('id', $id)->value('total_bruto');
@@ -361,12 +332,6 @@ class orderController extends Controller
                     'errors' => $validator->errors()
                 ], 422);
             }
-            //$yourController->yourFunction($request);
-            //$total = $request->kgrequeridos * $request->precioventa;
-            //$preciov = $request->precioventa * 1.0;
-            //$subtotal = $request->price * $request->quantity;
-
-            //$total = $precioUnitarioBruto *  $request->iva;          
 
             $formatCantidad = new metodosrogercodeController();
 
@@ -502,10 +467,9 @@ class orderController extends Controller
         ]);
     }
 
-    public function destroy(Request $request)
+
+    public function destroyDetail(Request $request)
     {
-
-
         try {
 
             $compe = OrderDetail::where('id', $request->id)->first();
@@ -535,8 +499,6 @@ class orderController extends Controller
             $order->total_bruto = $totalBruto;
             $order->descuentos = $totalDesc;
             $order->save();
-
-
 
             return response()->json([
                 'status' => 1,
@@ -572,17 +534,9 @@ class orderController extends Controller
 
             $venta = Order::where('id', $id)->latest()->first(); // el ultimo mas reciente;
             $venta->user_id = $request->user()->id;
-            /*     $venta->sale_id = $SaleIdNC; */
-
             $venta->status = $status;
-            /*      $venta->fecha_notacredito = now(); */
             $venta->fecha_cierre = now();
 
-
-            /* 
-            $totalValor = (float)OrderDetail::Where([['order_id', $id]])->sum('total');
-            $venta->valor_total = $totalValor;
- */
             $venta->save();
 
 
@@ -639,8 +593,6 @@ class orderController extends Controller
 
             $venta = Order::where('id', $id)->latest()->first(); // el ultimo mas reciente;
             $venta->user_id = $request->user()->id;
-
-
             $venta->status = $status;
             $venta->fecha_cierre = now()->addDays(2);
             $venta->save();
@@ -653,10 +605,28 @@ class orderController extends Controller
             return response()->json([
                 'status' => 0,
                 'array' => (array) $th
-            ]);
+            ]); 
         }
 
         //    return $this->index();      
-            
+
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $updateOrder = Order::firstWhere('id', $id);
+            $updateOrder->status = '2';
+            $updateOrder->save();
+            return response()->json([
+                "status" => 201,
+                "message" => "El registro # $id a sido de baja con exito",
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "status" => 500,
+                "message" => (array) $th
+            ]);
+        }
     }
 }

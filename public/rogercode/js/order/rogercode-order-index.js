@@ -202,6 +202,41 @@ const showData = (resp) => {
     modal.show();
 };
 
+
+function Confirm(id) {
+    swal({
+        title: "CONFIRMAR",
+        text: `¿ ESTA SEGURO DE ELIMINAR EL REGISTRO # ${id} ?`,
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Cerrar",
+        cancelButtonColor: "#fff",
+        confirmButtonColor: "#3B3F5C",
+        confirmButtonText: "Aceptar",
+    }).then(function (result) {
+        if (result.value) {
+            console.log(id);
+            const waitOneSecond = async () => {
+                let response = await fetch(`/downOrder/${id}`);
+                let resp = await response.json();
+                console.log(resp);
+                return resp;
+            };
+            waitOneSecond().then((resp) => {
+                console.log(resp); //
+                if (resp.status === 201) {
+                    swal({
+                        title: "Exito",
+                        text: resp.message,
+                        type: "success",
+                    });
+		    refresh_table();
+                }
+            });
+        }
+    });
+}
+
 const downCompensado = (id) => {
     swal({
         title: "CONFIRMAR",
