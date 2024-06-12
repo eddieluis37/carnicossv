@@ -129,10 +129,10 @@ class orderController extends Controller
 
                     if (Gate::allows('open-order')) {
                         $btn = '
-                            <div class="text-center">
-                                <a href="order/reopen/' . $data->id . '" class="btn btn-dark" title="Abrir pedido" target="_blank">
-                                    <i class="fas fa-box-open"></i> <!-- Icono que representa la apertura de un pedido -->
-                                </a>
+                            <div class="text-center">                              
+                                  <button class="btn btn-dark" title="Abrir pedido" onclick="Reopen(' . $data->id . ');">
+						            <i class="fas fa-box-open"></i>
+					             </button>
                                 <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="Pdf pedido cerrado" target="_blank">
                                    <i class="fas fa-file-pdf"></i> <!-- Icono que representa la apertura de un pedido -->
                                 </a>
@@ -585,7 +585,7 @@ class orderController extends Controller
         }
     }
 
-    public function reopen(Request $request, $id)
+    public function OriginalReopen(Request $request, $id)
     {
         $status = '0'; //1 = pagado       
 
@@ -605,11 +605,32 @@ class orderController extends Controller
             return response()->json([
                 'status' => 0,
                 'array' => (array) $th
-            ]); 
+            ]);
         }
 
         //    return $this->index();      
 
+    }
+
+    public function reopen(Request $request, $id)
+    {
+        try {
+
+            $venta = Order::where('id', $id)->latest()->first(); // el ultimo mas reciente;
+            $venta->user_id = $request->user()->id;
+            $venta->status = '0';
+            $venta->fecha_cierre = now()->addDays(2);
+            $venta->save();
+            return response()->json([
+                "status" => 201,
+                "message" => "El registro # $id abierto con exito",
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "status" => 500,
+                "message" => (array) $th
+            ]);
+        }
     }
 
     public function destroy($id)

@@ -502,7 +502,8 @@ Route::group(['middleware' => [('auth')]], function () {
     Route::post('ordersave', [orderController::class, 'store'])->name('order.save');
     Route::get('/getDireccionesByCliente/{cliente_id}', [orderController::class, 'getDireccionesByCliente'])->name('order.getDireccionesByCliente');
     Route::get('order/create/{id}', [orderController::class, 'create'])->name('order.create');
-    Route::get('order/reopen/{id}', [orderController::class, 'reopen'])->name('order.reopen');
+   // Route::get('order/reopen/{id}', [orderController::class, 'reopen'])->name('order.reopen');
+    Route::get('abrirOrden/{id}', [orderController::class, 'reopen'])->name('order.reopen');
     Route::post('ordersavedetail', [orderController::class, 'savedetail'])->name('order.savedetail');
     Route::post('orderById', [orderController::class, 'editOrder'])->name('order.editOrder');    
     Route::get('downOrder/{id}', [orderController::class, 'destroy'])->name('order.destroy');
