@@ -271,7 +271,7 @@
 						<form method="POST" action="registrar_order/{{$id}}">
 							@csrf
 							<div class="text-center mt-1">
-								<button id="cargarInventarioBtn" type="submit" class="btn btn-success">Guardar</button>
+								<button id="cargarInventarioBtn" type="submit" class="btn btn-success">Guardar & Cerrar Orden</button>
 								<!-- <a href="registrar_pago/{{$id}}" target="_blank" class="btn btn-success">Pagar</a> -->
 							</div>
 						</form>

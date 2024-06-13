@@ -205,10 +205,10 @@ const showData = (resp) => {
 function Reopen(id) {
     swal({
         title: "CONFIRMAR",
-        text: `¿ ESTA SEGURO DE DESEA ABIRR EL REGISTRO # ${id} ?`,
+        text: `¿ SEGURO DE ABRIR REGISTRO # ${id} ?`,
         type: "warning",
         showCancelButton: true,
-        cancelButtonText: "Cerrar",
+        cancelButtonText: "Cancelar",
         cancelButtonColor: "#fff",
         confirmButtonColor: "#3B3F5C",
         confirmButtonText: "Aceptar",
@@ -239,11 +239,11 @@ function Reopen(id) {
 
 function Confirm(id) {
     swal({
-        title: "CONFIRMAR",
-        text: `¿ ESTA SEGURO DE ELIMINAR EL REGISTRO # ${id} ?`,
+        title: "ADVERTENCIA",
+        text: `¿ SEGURO DE ELIMINAR REGISTRO # ${id} ?`,
         type: "warning",
         showCancelButton: true,
-        cancelButtonText: "Cerrar",
+        cancelButtonText: "Cancelar",
         cancelButtonColor: "#fff",
         confirmButtonColor: "#3B3F5C",
         confirmButtonText: "Aceptar",

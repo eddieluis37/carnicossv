@@ -623,7 +623,7 @@ class orderController extends Controller
             $venta->save();
             return response()->json([
                 "status" => 201,
-                "message" => "El registro # $id abierto con exito",
+                "message" => "Registro # $id abierto con exito",
             ]);
         } catch (\Throwable $th) {
             return response()->json([
@@ -641,7 +641,7 @@ class orderController extends Controller
             $updateOrder->save();
             return response()->json([
                 "status" => 201,
-                "message" => "El registro # $id a sido de baja con exito",
+                "message" => "Registro # $id eliminado con exito",
             ]);
         } catch (\Throwable $th) {
             return response()->json([
