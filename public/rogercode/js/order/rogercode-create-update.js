@@ -76,28 +76,28 @@ $('#direccion_envio').on('change', function() {
 });
 
 /* // Limpiar mensajes de error al limpiar el campo
-$('#fecha_venta, #centrocosto, #cliente, #factura, #vendedor, #subcentrodecosto').on('blur', function () {
+$('#fecha_order, #centrocosto, #cliente, #factura, #vendedor, #subcentrodecosto').on('blur', function () {
     $(this).next('.error-message').text('');
 }); */
 /* 
 // Limpiar mensajes de error al limpiar el campo
-$('#fecha_venta, #centrocosto, #cliente, #factura, #vendedor, #subcentrodecosto').on('focusout', function () {
+$('#fecha_order, #centrocosto, #cliente, #factura, #vendedor, #subcentrodecosto').on('focusout', function () {
     $(this).next('.error-message').text('');
 });
  */
 /* // Limpiar mensajes de error al limpiar el campo
-$('#fecha_venta, #centrocosto, #cliente, #factura').on('change', function () {
+$('#fecha_order, #centrocosto, #cliente, #factura').on('change', function () {
     $(this).next('.error-message').text('');
 }); */
 
 /* 
 // Limpiar mensajes de error al limpiar el campo
-$('#fecha_venta, #centrocosto, #cliente, #factura, #vendedor, #subcentrodecosto').on('input', function () {
+$('#fecha_order, #centrocosto, #cliente, #factura, #vendedor, #subcentrodecosto').on('input', function () {
     $(this).next('.error-message').text('');
 }); */
 
 
 /* // Limpiar mensajes de error al limpiar el campo
-$('#fecha_venta, #centrocosto, #cliente, #factura, #vendedor, #subcentrodecosto').on('keyup', function () {
+$('#fecha_order, #centrocosto, #cliente, #factura, #vendedor, #subcentrodecosto').on('keyup', function () {
     $(this).next('.error-message').text('');
 }); */

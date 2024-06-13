@@ -7,8 +7,8 @@
 			<div class="col-md-6">
 				<div class="task-header">
 					<div class="form-group">
-						<label for="date1" class="form-label">Fecha</label>
-						<input type="date" class="form-control" name="fecha_venta" id="fecha_venta" placeholder="Last name" aria-label="Last name" value="<?php echo date('Y-m-d'); ?>">
+						<label for="date1" class="form-label">Fecha Orden de Pedido</label>
+						<input type="date" class="form-control" name="fecha_order" id="fecha_order" placeholder="Last name" aria-label="Last name" value="<?php echo date('Y-m-d'); ?>">
 					</div>
 				</div>
 			</div>

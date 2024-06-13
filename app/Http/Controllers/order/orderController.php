@@ -101,10 +101,10 @@ class orderController extends Controller
                     $btn = '
                         <div class="text-center">
 					    
-                        <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="VerFacturaDespuesdeFechaCierre" target="_blank">
+                        <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="VerOrdenDespuesDeFechaCierre" target="_blank">
                         <i class="far fa-file-pdf"></i>
-					    </a>				
-					    <button class="btn btn-dark" title="Borrar venta" disabled>
+					    </a>                       			
+					    <button class="btn btn-dark" title="BorrarOrden" disabled>
 						    <i class="fas fa-trash"></i>
 					    </button>
                         </div>
@@ -112,14 +112,18 @@ class orderController extends Controller
                 } elseif (Carbon::parse($currentDateTime->format('Y-m-d'))->lt(Carbon::parse($data->fecha_cierre))) {
                     $btn = '
                         <div class="text-center">
-					    <a href="order/create/' . $data->id . '" class="btn btn-dark" title="Detalles">
+					    <a href="order/create/' . $data->id . '" class="btn btn-dark" title="EditarDetallesDeOrden">
 						    <i class="fas fa-directions"></i>
 					    </a>
+
+                         <button class="btn btn-dark" title="EditarCabezaOrden" onclick="edit(' . $data->id . ');">
+						    <i class="fas fa-edit"></i>
+					    </button>
 					   
                         <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="PdfOrdenPendiente" target="_blank">
                         <i class="far fa-file-pdf"></i>
 					    </a>
-                        <button class="btn btn-dark" title="Borrar Beneficio" onclick="Confirm(' . $data->id . ');">
+                        <button class="btn btn-dark" title="BorrarOrden" onclick="Confirm(' . $data->id . ');">
 						    <i class="fas fa-trash"></i>
 					    </button>					  
                         </div>
@@ -130,7 +134,7 @@ class orderController extends Controller
                     if (Gate::allows('open-order')) {
                         $btn = '
                             <div class="text-center">                              
-                                  <button class="btn btn-dark" title="Abrir pedido" onclick="Reopen(' . $data->id . ');">
+                                  <button class="btn btn-dark" title="AbrirPedido" onclick="Reopen(' . $data->id . ');">
 						            <i class="fas fa-box-open"></i>
 					             </button>
                                 <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="Pdf pedido cerrado" target="_blank">
@@ -457,6 +461,16 @@ class orderController extends Controller
             ]);
         }
     }
+
+    public function edit($id)
+	{
+
+		$ordenes = Order::where('id', $id)->first();
+		return response()->json([
+			"id" => $id,
+			"ordenespedidos" => $ordenes,
+		]);
+	}
 
     public function editOrder(Request $request)
     {

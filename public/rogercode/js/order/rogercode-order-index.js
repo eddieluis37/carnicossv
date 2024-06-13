@@ -13,6 +13,8 @@ const inputFactura = document.querySelector("#factura");
 const sale_id = document.querySelector("#ventaId");
 const contentform = document.querySelector("#contentDisable");
 
+inputfecha_order = document.querySelector("#fecha_order");
+
 $(document).ready(function () {
     $(function () {
         $("#tableCompensado").DataTable({
@@ -292,4 +294,34 @@ const downCompensado = (id) => {
             });
         }
     });
+};
+
+const edit = async (id) => {
+    console.log(id);
+    const response = await fetch(`/order-edit/${id}`);
+    const data = await response.json();
+    console.log(data);
+    if(contentform.hasAttribute('disabled')){
+    	contentform.removeAttribute('disabled');
+       
+        $('#cliente').prop('disabled', false);
+        
+    	
+    }
+    showForm(data);
+};
+
+const showForm = (data) => {
+    let resp = data.ordenespedidos;
+    console.log(resp);
+    sale_id.value = resp.id;
+    inputfecha_order.value = resp.fecha_order;
+    $("#cliente").val(resp.third_id).trigger("change");
+  
+  
+
+    const modal = new bootstrap.Modal(
+        document.getElementById("modal-create-compensado")
+    );
+    modal.show();
 };
