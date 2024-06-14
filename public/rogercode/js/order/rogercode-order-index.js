@@ -14,6 +14,10 @@ const sale_id = document.querySelector("#ventaId");
 const contentform = document.querySelector("#contentDisable");
 
 inputfecha_order = document.querySelector("#fecha_order");
+inputdireccion_envio = document.querySelector("#direccion_envio");
+inputvendedor = document.querySelector("#vendedor");
+inputsubcentrodecosto = document.querySelector("#subcentrodecosto");
+inputalistador = document.querySelector("#alistador");
 
 $(document).ready(function () {
     $(function () {
@@ -311,13 +315,24 @@ const edit = async (id) => {
     showForm(data);
 };
 
+/* inputdireccion_envio.value = resp.direccion_envio; */
+
 const showForm = (data) => {
     let resp = data.ordenespedidos;
     console.log(resp);
     sale_id.value = resp.id;
     inputfecha_order.value = resp.fecha_order;
     $("#cliente").val(resp.third_id).trigger("change");
-  
+    $("#direccion_envio").val(resp.direccion_envio).trigger("change");
+    $("#vendedor").val(resp.vendedor_id).trigger("change");
+    
+
+    inputsubcentrodecosto.value = resp.subcentrodecosto;
+    inputalistador.value = resp.alistador;
+
+
+    
+
   
 
     const modal = new bootstrap.Modal(
