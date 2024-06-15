@@ -31,10 +31,10 @@
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">contabilidad@puracarnes.com</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">www.puracarnes.com</span>
 				</td>
-				<td>
-					<img src="{{ asset('assets/img/Logo_CSV2.png') }}" alt="" class="invoice-logo" width="50%" style="vertical-align: top; padding-top: 1px; position: relative">
+				<!-- <td>
+					<img src="{{ asset('assets/img/Logo_CSV2.png') }}" alt="" class="invoice-logo" width="10%" style="vertical-align: top; padding-top: -1px; position: relative">
 				</td>
-
+ -->
 			</tr>
 			<tr>
 				<td colspan=" 2" class="text-center">
@@ -44,7 +44,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td width="70%" class="text-left text-company" style="vertical-align: top; padding-top: 7px">
+				<td width="75%" class="text-left text-company" style="vertical-align: top; padding-top: 7px">
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">FECHA Y HORA DE CONSULTA: <strong>{{ $fecha->isoFormat('dddd, D [de] MMMM [de] YYYY') }} | {{\Carbon\Carbon::now()->format('H:i')}}</strong></span>
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">VENDEDOR:<strong> {{$order[0]->nombre_vendedor}}</strong></span>
 					<span style="font-size: 11px; font-weight: lighter; display: block; margin: 2;">CLIENTE:<strong> {{$order[0]->namethird}}</strong></span>
@@ -53,10 +53,16 @@
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">DIRECCIÓN:<strong> {{$order[0]->direccion}}</strong></span>
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">CELULAR:<strong> {{$order[0]->celular}}</strong></span>
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">METODO DE PAGO:<strong> {{$order[0]->forma_pago}}</strong></span>
+
+
+				</td>
+
+				<td width="25%" class="text-left text-company" style="vertical-align: top; padding-top: 7px">
 					<span style="font-size: 11px; font-weight: lighter; display: block; margin: 2;">
 						FECHA DE ENTREGA:
 						<strong>
-							{{ \Carbon\Carbon::parse($order[0]->fecha_entrega)->isoFormat('dddd, D [de] MMMM [de] YYYY') }}
+							<!-- {{ \Carbon\Carbon::parse($order[0]->fecha_entrega)->isoFormat('dddd, D [de] MMMM [de] YYYY') }} -->
+							{{ \Carbon\Carbon::parse($order[0]->fecha_entrega)->isoFormat('dddd, D [de] MMMM') }}
 						</strong>
 					</span>
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">
@@ -73,12 +79,14 @@
 					</span>
 					<span style="font-size: 11px; font-weight: lighter; display: block; margin: 2;">Items:<strong>{{$order->sum('items')}}</strong></span>
 				</td>
-
+			<tr>
+				<span style="font-size: 14px; font-weight: lighter; display: block; margin: 4;">Nota:<strong> {{$order[0]->observacion}}</strong></span>
+			</tr>
 			</tr>
 		</table>
 	</section>
 
-	<section style="margin-top: 15px">
+	<section style="margin-top: -50px">
 		<table cellpadding="0" cellspacing="0" class="table-items" width="100%">
 			<thead>
 				<tr>
@@ -146,7 +154,7 @@
 					<td></td>
 					<td></td>
 					<td class="text-right">
-						<span><strong>{{ number_format($item->where('order_id', '=', $item->order_id)->sum('total'),0)}}</strong></span>
+						<span><strong>{{ number_format($item->where('order_id', '=', $item->order_id)->sum('total'),0, ',', '.' )}}</strong></span>
 					</td>
 					<td></td>
 				</tr>
@@ -167,11 +175,11 @@
 					<td></td>
 					<td></td>
 				</tr>
-				<tr>
+				<!-- <tr>
 					<td colspan="15" style="text-align: left;">
 						<span style="font-size: larger; font-weight: bold;">Observaciones: {{$order[0]->observacion}}</span>
 					</td>
-				</tr>
+				</tr> -->
 			</tfoot>
 		</table>
 
