@@ -14,10 +14,12 @@ const sale_id = document.querySelector("#ventaId");
 const contentform = document.querySelector("#contentDisable");
 
 inputfecha_order = document.querySelector("#fecha_order");
+inputfecha_entrega = document.querySelector("#fecha_entrega");
 inputdireccion_envio = document.querySelector("#direccion_envio");
 inputvendedor = document.querySelector("#vendedor");
 inputsubcentrodecosto = document.querySelector("#subcentrodecosto");
-inputalistador = document.querySelector("#alistador");
+
+inputhora_inicial_entrega = document.querySelector("#hora_inicial_entrega");
 
 $(document).ready(function () {
     $(function () {
@@ -33,7 +35,7 @@ $(document).ready(function () {
                 type: "GET",
             },
             columns: [
-                { data: "id", name: "id" },                
+                { data: "id", name: "id" },
                 {
                     data: "namethird",
                     name: "namethird",
@@ -56,9 +58,9 @@ $(document).ready(function () {
                         }
                     },
                 },
-              /*   { data: "saresolucion", name: "saresolucion" }, */
-              /*   { data: "ncresolucion", name: "ncresolucion" }, */
-                { data: "status", name: "status" }, 
+                /*   { data: "saresolucion", name: "saresolucion" }, */
+                /*   { data: "ncresolucion", name: "ncresolucion" }, */
+                { data: "status", name: "status" },
                 {
                     data: "total_valor_a_pagar",
                     name: "total_valor_a_pagar",
@@ -71,7 +73,7 @@ $(document).ready(function () {
                             })
                         );
                     },
-                },  
+                },
                 {
                     data: "total_utilidad",
                     name: "total_utilidad",
@@ -84,9 +86,9 @@ $(document).ready(function () {
                             })
                         );
                     },
-                },                       
+                },
                 { data: "date", name: "date" },
-                
+
                 { data: "resolucion", name: "resolucion" },
                 {
                     data: "nombre_vendedor",
@@ -123,15 +125,13 @@ $(document).ready(function () {
             },
         });
     });
-    $('.select2Cliente').select2({
-        placeholder: 'Busca un cliente',
-        width: '100%',
+    $(".select2Cliente").select2({
+        placeholder: "Busca un cliente",
+        width: "100%",
         theme: "bootstrap-5",
         allowClear: true,
-    }); 
+    });
 });
-
-
 
 /* $(".select2Ventas").select2({
     placeholder: "Busca una factura",
@@ -235,13 +235,12 @@ function Reopen(id) {
                         text: resp.message,
                         type: "success",
                     });
-		    refresh_table();
+                    refresh_table();
                 }
             });
         }
     });
 }
-
 
 function Confirm(id) {
     swal({
@@ -270,7 +269,7 @@ function Confirm(id) {
                         text: resp.message,
                         type: "success",
                     });
-		    refresh_table();
+                    refresh_table();
                 }
             });
         }
@@ -305,18 +304,42 @@ const edit = async (id) => {
     const response = await fetch(`/order-edit/${id}`);
     const data = await response.json();
     console.log(data);
-    if(contentform.hasAttribute('disabled')){
-    	contentform.removeAttribute('disabled');
-       
-        $('#cliente').prop('disabled', false);
-        
-    	
+    if (contentform.hasAttribute("disabled")) {
+        contentform.removeAttribute("disabled");
+
+        $("#cliente").prop("disabled", false);
     }
     showForm(data);
 };
 
 /* inputdireccion_envio.value = resp.direccion_envio; */
+/*    */
 
+function convertirHora(hora24) {
+    // Dividir la hora en horas y minutos
+    var horaMinutos = hora24.split(":");
+
+    // Obtener las horas y minutos
+    var horas = parseInt(horaMinutos[0]);
+    var minutos = horaMinutos[1];
+
+    // Determinar si es "am" o "pm"
+    var periodo = horas >= 12 ? "PM" : "AM";
+
+    // Convertir a formato de 12 horas
+    horas = horas % 12 || 12;
+
+    // Anteponer un "0" si la hora es de un solo dígito
+    horas = horas < 10 ? "0" + horas : horas;
+
+    // Crear la cadena de la hora en formato de 12 horas
+//  var hora12 = horas + ":" + minutos + " " + periodo;
+    var hora12 = horas + ":" + minutos;
+
+
+    return hora12;
+}
+//
 const showForm = (data) => {
     let resp = data.ordenespedidos;
     console.log(resp);
@@ -325,18 +348,44 @@ const showForm = (data) => {
     $("#cliente").val(resp.third_id).trigger("change");
     $("#direccion_envio").val(resp.direccion_envio).trigger("change");
     $("#vendedor").val(resp.vendedor_id).trigger("change");
-    
+    $("#subcentrodecosto").val(resp.subcentrocostos_id).trigger("change");
+    $("#alistador").val(resp.alistador_id).trigger("change");
 
-    inputsubcentrodecosto.value = resp.subcentrodecosto;
-    inputalistador.value = resp.alistador;
+    inputfecha_entrega.value = resp.fecha_entrega;
+    $("#forma_de_pago").val(resp.formapago_id).trigger("change");
+    $("#observacion").val(resp.observacion).trigger("change");
 
+    // Convertir la hora inicial de entrega al formato de 12 horas
+    var hora12 = convertirHora(resp.hora_inicial_entrega);
 
-    
+    // Establecer el valor de la hora inicial de entrega en formato de 12 horas
+  //  $("#hora_inicial_entrega").val(hora12).trigger("change");
 
-  
+  //   inputhora_inicial_entrega.value = "03:30";
+
+    console.log(hora12); // Salida: "03:30 pm"
 
     const modal = new bootstrap.Modal(
         document.getElementById("modal-create-compensado")
     );
     modal.show();
 };
+
+// Limpiar mensajes de error al cambiar el valor del campo
+$('#direccion_envio').on('change', function() {
+    $('.error-message').text('');
+});
+
+$('#hora_inicial_entrega').on('change', function() {
+    $('.error-message').text('');
+});
+
+$('#hora_final_entrega').on('change', function() {
+    $('.error-message').text('');
+});
+
+// Limpiar mensajes de error al cerrar la ventana modal
+$('#modal-create-compensado').on('hidden.bs.modal', function () {
+    $('.error-message').text('');
+});
+
