@@ -94,6 +94,14 @@ class orderController extends Controller
                 $formattedDate = $date->format('M-d. H:i');
                 return $formattedDate;
             })
+            ->addColumn('date2', function ($data) {
+                $fechaEntrega = Carbon::parse($data->fecha_entrega);
+                $horaInicial = Carbon::parse($data->hora_inicial_entrega);
+
+                $fechaHoraConcatenada = $fechaEntrega->format('M-d') . ' ' . $horaInicial->format('H:i');
+
+                return $fechaHoraConcatenada;
+            })
             ->addColumn('action', function ($data) {
                 $currentDateTime = Carbon::now();
 
@@ -148,7 +156,7 @@ class orderController extends Controller
                 return $btn;
             })
 
-            ->rawColumns(['status', 'date', 'action'])
+            ->rawColumns(['status', 'date', 'date2', 'action'])
             ->make(true);
     }
 
@@ -413,7 +421,7 @@ class orderController extends Controller
                 $detail->total_costo = $totalCosto;
                 $detail->utilidad = $utilidad;
                 $detail->porc_utilidad = $porc_utilidad;
-                $detail->total = $Total;             
+                $detail->total = $Total;
                 $detail->save();
             } else {
                 $updateReg = OrderDetail::firstWhere('id', $request->regdetailId);
@@ -460,9 +468,9 @@ class orderController extends Controller
             $order->total_bruto = $totalBruto;
             $order->descuentos = $totalDesc;
 
-            $resolucion = 'OP ' . $request->ventaId;            
+            $resolucion = 'OP ' . $request->ventaId;
             $order->resolucion = $resolucion;
-            
+
             $order->save();
 
             $arraydetail = $this->getventasdetail($request->ventaId);

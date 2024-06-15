@@ -88,8 +88,10 @@ $(document).ready(function () {
                     },
                 },
                 { data: "date", name: "date" },
+                { data: "date2", name: "date2" },
 
-                { data: "resolucion", name: "resolucion" },
+                /* { data: "resolucion", name: "resolucion" }, */
+                
                 {
                     data: "nombre_vendedor",
                     name: "nombre_vendedor",
