@@ -223,9 +223,27 @@ class orderController extends Controller
                     "registroId" => $venta->id
                 ]);
             } else {
+                $updateOrder = Order::firstWhere('id', $request->ventaId);
+                $currentDateTime = Carbon::now();
+                $currentDateFormat = Carbon::parse($currentDateTime->format('Y-m-d'));
+                $updateOrder->fecha_order = $currentDateFormat;
+                $updateOrder->centrocosto_id = $request->centrocosto;
+                $updateOrder->third_id = $request->cliente;
+                $updateOrder->direccion_envio = $request->direccion_envio;
+                $updateOrder->vendedor_id = $request->vendedor;
+                $updateOrder->subcentrocostos_id = $request->subcentrodecosto;
+                $updateOrder->alistador_id = $request->alistador;
+                $updateOrder->fecha_entrega = $request->fecha_entrega;
+                $updateOrder->hora_inicial_entrega = $request->hora_inicial_entrega;
+                $updateOrder->hora_final_entrega = $request->hora_final_entrega;
+                $updateOrder->formapago_id = $request->forma_de_pago;
+                $updateOrder->observacion = $request->observacion;
+                $updateOrder->save();
+
                 return response()->json([
-                    'status' => 0,
-                    'message' => 'No se puede crear más de 2 notas de crédito para la misma factura'
+                    "status" => 1,
+                    "message" => "Guardado correctamente",
+                    "registroId" => 0
                 ]);
             }
         } catch (\Throwable $th) {
@@ -463,14 +481,14 @@ class orderController extends Controller
     }
 
     public function edit($id)
-	{
+    {
 
-		$ordenes = Order::where('id', $id)->first();
-		return response()->json([
-			"id" => $id,
-			"ordenespedidos" => $ordenes,
-		]);
-	}
+        $ordenes = Order::where('id', $id)->first();
+        return response()->json([
+            "id" => $id,
+            "ordenespedidos" => $ordenes,
+        ]);
+    }
 
     public function editOrder(Request $request)
     {
