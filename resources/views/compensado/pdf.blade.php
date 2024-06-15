@@ -19,12 +19,12 @@
 </head>
 
 <body>
-	<section class="header" style="top: -293px;">
+	<section class="header" style="top: -300px;">
 		<table cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 				<td colspan="2" class="text-center">
-					<img src="{{ asset('assets/img/logo65.png') }}" alt="" class="invoice-logo" width="20%" style="vertical-align: top; padding-top: -100px; position: relative">
-					<span style="font-size: 9px; font-weight: bold; display: block; margin: 0;">PURACARNES SAS</span>
+					<img src="{{ asset('assets/img/Logo_CSV.png') }}" alt="" class="invoice-logo" width="7%" style="vertical-align: top; padding-top: -38px; position: relative">
+					<span style="font-size: 9px; font-weight: bold; display: block; margin: 0;">CARNICOS SV SAS</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">Nit 901.531.807-3</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">AUTOPISTA SUR 66 78 LC B 22 FRIGORIFICO GUADALUPE</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">Bogotá - Tel. (601) 9502998</span>
@@ -79,9 +79,9 @@
 				<tr>
 					<td align="left">{{$item->code}}</td>
 					<td align="center">{{$item->nameprod}}</td>
-					<td align="right">$ {{number_format($item->pcompra),2}}</td>
+					<td align="right">${{number_format($item->pcompra ,0, ',', '.' )}}</td>
 					<td align="right">{{$item->peso}}</td>
-					<td align="right">$ {{number_format($item->subtotal),2}}</td>
+					<td align="right">${{number_format($item->subtotal ,0, ',', '.' )}}</td>
 				</tr>
 				@endforeach
 			</tbody>
@@ -92,13 +92,13 @@
 					</td>
 					<td></td>
 					<td colspan="1" class="text-right">
-						<span><strong>$ {{ number_format($total_precio),0}}</strong></span>
+						<span><strong>${{ number_format($total_precio ,0, ',', '.' )}}</strong></span>
 					</td>
 					<td class="text-center">
 						<span><strong>{{$total_weight}}</strong></span>
 					</td>
 					<td class="text-right">
-						<span><strong>$ {{ number_format($total_subtotal),0}}</strong></span>
+						<span><strong>${{ number_format($total_subtotal ,0, ',', '.' )}}</strong></span>
 					</td>
 
 				</tr>
