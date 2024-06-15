@@ -331,6 +331,8 @@ class orderController extends Controller
         return $detalles;
     }
 
+    /* $count = DB::table('orders')->where('status', '1')->count(); */
+
     public function savedetail(Request $request)
     {
         try {
@@ -411,7 +413,7 @@ class orderController extends Controller
                 $detail->total_costo = $totalCosto;
                 $detail->utilidad = $utilidad;
                 $detail->porc_utilidad = $porc_utilidad;
-                $detail->total = $Total;
+                $detail->total = $Total;             
                 $detail->save();
             } else {
                 $updateReg = OrderDetail::firstWhere('id', $request->regdetailId);
@@ -457,9 +459,10 @@ class orderController extends Controller
             });
             $order->total_bruto = $totalBruto;
             $order->descuentos = $totalDesc;
-            $count = DB::table('orders')->where('status', '1')->count();
-            $resolucion = 'OP ' . (1 + $count);
+
+            $resolucion = 'OP ' . $request->ventaId;            
             $order->resolucion = $resolucion;
+            
             $order->save();
 
             $arraydetail = $this->getventasdetail($request->ventaId);
