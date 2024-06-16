@@ -118,28 +118,28 @@
                                                 <h6>{{$d->total_ventas}}</h6>
                                             </td>
                                             <td class="text-right">
-                                                <h6>${{number_format($d->venta_real)}}</h6>
+                                                <h6>${{number_format($d->venta_real,0, ',', '.')}}</h6>
                                             </td>
                                             <td class="text-right">
-                                                <h6>${{number_format($d->descuentos)}}</h6>
+                                                <h6>${{number_format($d->descuentos,0, ',', '.')}}</h6>
                                             </td>
                                             <td class="text-right">
-                                                <h6>${{number_format($d->subtotal)}}</h6>
+                                                <h6>${{number_format($d->subtotal,0, ',', '.')}}</h6>
                                             </td>
                                             <td class="text-right">
-                                                <h6>${{number_format($d->impuesto_IVA)}}</h6>
+                                                <h6>${{number_format($d->impuesto_IVA,0, ',', '.')}}</h6>
                                             </td>
                                             <td class="text-right">
-                                                <h6>${{number_format($d->impuesto_SALUDABLE)}}</h6>
+                                                <h6>${{number_format($d->impuesto_SALUDABLE,0, ',', '.')}}</h6>
                                             </td>
                                             <td class="text-right">
                                                 <h6>$0</h6>
                                             </td>
                                             <td class="text-right">
-                                                <h6>${{number_format($d->Total_Impuestos)}}</h6>
+                                                <h6>${{number_format($d->Total_Impuestos,0, ',', '.')}}</h6>
                                             </td>
                                             <td class="text-right">
-                                                <h6>${{number_format($d->Total)}}</h6>
+                                                <h6>${{number_format($d->Total,0, ',', '.')}}</h6>
                                             </td>
                                             <td class="text-center">
                                                 <button type="button" onclick="rePrint({{$d->id}})" class="btn btn-dark btn-sm">
@@ -154,14 +154,14 @@
                                     <tr>
                                         <td colspan="1"><strong>Total:</strong></td>
                                         <td class="text-right"><strong>{{ $this->totals['total_ventas'] }}</strong></td>
-                                        <td class="text-right"><strong>${{ number_format( $this->totals['venta_real']) }}</strong></td>
-                                        <td class="text-right"><strong>${{ number_format( $this->totals['descuentos']) }}</strong></td>
-                                        <td class="text-right"><strong>${{ number_format( $this->totals['subtotal']) }}</strong></td>
-                                        <td class="text-right"><strong>${{ number_format( $this->totals['impuesto_IVA']) }}</strong></td>
-                                        <td class="text-right"><strong>${{ number_format( $this->totals['impuesto_SALUDABLE']) }}</strong></td>
+                                        <td class="text-right"><strong>${{ number_format( $this->totals['venta_real'],0, ',', '.')}}</strong></td>
+                                        <td class="text-right"><strong>${{ number_format( $this->totals['descuentos'],0, ',', '.')}}</strong></td>
+                                        <td class="text-right"><strong>${{ number_format( $this->totals['subtotal'],0, ',', '.')}}</strong></td>
+                                        <td class="text-right"><strong>${{ number_format( $this->totals['impuesto_IVA'],0, ',', '.')}}</strong></td>
+                                        <td class="text-right"><strong>${{ number_format( $this->totals['impuesto_SALUDABLE'],0, ',', '.')}}</strong></td>
                                         <td class="text-right"><strong>$0</strong></td>
-                                        <td class="text-right"><strong>${{ number_format( $this->totals['Total_Impuestos']) }}</strong></td>
-                                        <td class="text-right"><strong>${{ number_format( $this->totals['Total']) }}</strong></td>
+                                        <td class="text-right"><strong>${{ number_format( $this->totals['Total_Impuestos'],0, ',', '.')}}</strong></td>
+                                        <td class="text-right"><strong>${{ number_format( $this->totals['Total'],0, ',', '.')}}</strong></td>
 
                                     </tr>
                                 </tfoot>
