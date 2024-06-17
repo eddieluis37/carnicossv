@@ -52,8 +52,7 @@
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">NIT / C.C.:<strong> {{ number_format($order[0]->identification, 0, ',', '.')}}</strong></span>
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">DIRECCIÓN:<strong> {{$order[0]->direccion}}</strong></span>
 					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">CELULAR:<strong> {{$order[0]->celular}}</strong></span>
-					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">METODO DE PAGO:<strong> {{$order[0]->forma_pago}}</strong></span>
-
+					
 
 				</td>
 
@@ -78,6 +77,8 @@
 						<strong>{{ $order[0]->status == 1 ? 'Cerrada' : 'Pendiente' }}</strong>
 					</span>
 					<span style="font-size: 11px; font-weight: lighter; display: block; margin: 2;">Items:<strong>{{$order->sum('items')}}</strong></span>
+					<span style="font-size: 9px; font-weight: lighter; display: block; margin: 2;">METODO DE PAGO:<strong> {{$order[0]->forma_pago}}</strong></span>
+
 				</td>
 			<tr>
 				<span style="font-size: 14px; font-weight: lighter; display: block; margin: 4;">Nota:<strong> {{$order[0]->observacion}}</strong></span>
