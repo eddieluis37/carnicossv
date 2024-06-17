@@ -495,14 +495,14 @@ class compensadoController extends Controller
                 ->sum('peso');
 
             // Almacenar el peso acomulado en la tabla temporal
-            DB::table('temporary_accumulatedWeights')->insert([
+            DB::table('temporary_accumulatedweights')->insert([
                 'product_id' => $centroCostoProduct->products_id,
                 'accumulated_weight' => $accumulatedWeight
             ]);
         }
 
-        // Recuperar los registros de la tabla temporary_accumulatedWeights
-        $accumulatedWeights = DB::table('temporary_accumulatedWeights')->get();
+        // Recuperar los registros de la tabla temporary_accumulatedweights
+        $accumulatedWeights = DB::table('temporary_accumulatedweights')->get();
 
         foreach ($accumulatedWeights as $accumulatedWeight) {
             $centroCostoProduct = Centro_costo_product::find($accumulatedWeight->product_id);
@@ -511,8 +511,8 @@ class compensadoController extends Controller
             $centroCostoProduct->compensados += $accumulatedWeight->accumulated_weight;
             $centroCostoProduct->save();
 
-            // Limpiar la tabla temporary_accumulatedWeights
-            DB::table('temporary_accumulatedWeights')->truncate();
+            // Limpiar la tabla temporary_accumulatedweights
+            DB::table('temporary_accumulatedweights')->truncate();
         }
         session()->regenerate();
         return response()->json([
@@ -524,7 +524,7 @@ class compensadoController extends Controller
 
     public function cargarInventarioMasivo()
     {
-        for ($compensadoId = 750; $compensadoId <= 785; $compensadoId++) {
+        for ($compensadoId = 1; $compensadoId <= 38; $compensadoId++) {
             $currentDateTime = Carbon::now();
             $formattedDate = $currentDateTime->format('Y-m-d');
 
@@ -568,14 +568,14 @@ class compensadoController extends Controller
                     ->sum('peso');
 
                 // Almacenar el peso acumulado en la tabla temporal
-                DB::table('temporary_accumulatedWeights')->insert([
+                DB::table('temporary_accumulatedweights')->insert([
                     'product_id' => $centroCostoProduct->products_id,
                     'accumulated_weight' => $accumulatedWeight
                 ]);
             }
 
-            // Recuperar los registros de la tabla temporary_accumulatedWeights
-            $accumulatedWeights = DB::table('temporary_accumulatedWeights')->get();
+            // Recuperar los registros de la tabla temporary_accumulatedweights
+            $accumulatedWeights = DB::table('temporary_accumulatedweights')->get();
 
             foreach ($accumulatedWeights as $accumulatedWeight) {
                 $centroCostoProduct = Centro_costo_product::find($accumulatedWeight->product_id);
@@ -584,8 +584,8 @@ class compensadoController extends Controller
                 $centroCostoProduct->compensados += $accumulatedWeight->accumulated_weight;
                 $centroCostoProduct->save();
 
-                // Limpiar la tabla temporary_accumulatedWeights
-                DB::table('temporary_accumulatedWeights')->truncate();
+                // Limpiar la tabla temporary_accumulatedweights
+                DB::table('temporary_accumulatedweights')->truncate();
             }
         }
 
