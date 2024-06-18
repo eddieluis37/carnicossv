@@ -23,8 +23,8 @@
 		<table cellpadding="0" cellspacing="0" width="100%">
 			<tr>
 				<td colspan="2" class="text-center">
-					<img src="{{ asset('assets/img/logo65.png') }}" alt="" class="invoice-logo" width="20%" style="vertical-align: top; padding-top: -100px; position: relative">
-					<span style="font-size: 9px; font-weight: bold; display: block; margin: 0;">PURACARNES SAS</span>
+					<!-- <img src="{{ asset('assets/img/logo65.png') }}" alt="" class="invoice-logo" width="20%" style="vertical-align: top; padding-top: -100px; position: relative"> -->
+					<span style="font-size: 9px; font-weight: bold; display: block; margin: 0;">CARNICOS SV SAS</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">Nit 901.531.807-3</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">AUTOPISTA SUR 66 78 LC B 22 FRIGORIFICO GUADALUPE</span>
 					<span style="font-size: 8px; font-weight: lighter; display: block; margin: 0;">Bogotá - Tel. (601) 9502998</span>
@@ -73,7 +73,7 @@
 				<tr>
 					<td align="center">{{$item->nameprod}}</td>
 					<td align="center">{{$item->quantity}}</td>
-					<td align="right">$ {{number_format($item->total),2}}</td>
+					<td align="right">$ {{number_format($item->total ,0, ',', '.' )}}</td>
 				</tr>
 				@endforeach
 			</tbody>
@@ -86,7 +86,7 @@
 						<span><strong>{{ $quantity = $item->where('notacredito_id', '=', $item->notacredito_id)->sum('quantity')}}</strong></span>
 					</td>
 					<td class="text-right">
-						<span><strong>$ {{ number_format($item->where('notacredito_id', '=', $item->notacredito_id)->sum('total'),0)}}</strong></span>
+						<span><strong>$ {{ number_format($item->where('notacredito_id', '=', $item->notacredito_id)->sum('total') ,0, ',', '.' )}}</strong></span>
 					</td>
 				</tr>
 			</tfoot>
