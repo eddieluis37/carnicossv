@@ -390,6 +390,9 @@
                     </a>
                     <ul id="compra" class="collapse" data-parent="#compact_submenuSidebar">
                         <li>
+                            <a href="{{ url('reportes/compras_requeridas') }}"> Requeridas </a>
+                        </li>
+                        <li>
                             <a href="{{ url('reportes/compras_por_productos') }}"> Por productos </a>
                         </li>
                         <li>

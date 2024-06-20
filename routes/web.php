@@ -91,6 +91,7 @@ use App\Http\Controllers\reportes\reportecompraprodController;
 use App\Http\Controllers\reportes\reportecompraproveedorController;
 use App\Http\Controllers\reportes\reporteventaprodclientController;
 use App\Http\Controllers\reportes\reporteventaprodController;
+use App\Http\Controllers\reportes\reportecomprarequeridaController;
 
 /************************************************* */
 
@@ -245,6 +246,7 @@ Route::group(['middleware' => [('auth')]], function () {
     Route::get('showReportVentasPorProd', [reporteventaprodController::class, 'show'])->name('showReportVentasPorProd.showlist');
 
     Route::get('reportes/compras_por_productos', [reportecompraprodController::class, 'index'])->name('reportes.compras_por_productos');
+    Route::get('reportes/compras_requeridas', [reportecomprarequeridaController::class, 'index'])->name('reportes.compras_requeridas');
     Route::get('showReportComprasPorProd', [reportecompraprodController::class, 'show'])->name('showReportComprasPorProd.showlist');
 
     Route::get('reportes/compras_por_proveedores', [reportecompraproveedorController::class, 'index'])->name('reportes.compras_por_proveedores');
