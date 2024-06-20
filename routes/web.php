@@ -506,6 +506,7 @@ Route::group(['middleware' => [('auth')]], function () {
     Route::get('order/create/{id}', [orderController::class, 'create'])->name('order.create');
    // Route::get('order/reopen/{id}', [orderController::class, 'reopen'])->name('order.reopen');
     Route::get('abrirOrden/{id}', [orderController::class, 'reopen'])->name('order.reopen');
+    Route::get('delivered/{id}', [orderController::class, 'delivered'])->name('order.delivered');
     Route::post('ordersavedetail', [orderController::class, 'savedetail'])->name('order.savedetail');
     Route::post('orderById', [orderController::class, 'editOrder'])->name('order.editOrder');    // order_details 
     Route::get('downOrder/{id}', [orderController::class, 'destroy'])->name('order.destroy');

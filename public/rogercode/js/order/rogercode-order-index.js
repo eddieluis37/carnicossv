@@ -210,6 +210,41 @@ const showData = (resp) => {
     modal.show();
 };
 
+function Delivered(id) {
+    swal({
+        title: "CONFIRMAR",
+        text: `¿ PEDIDO # ${id} FUE ENTREGADO ?`,
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "No",
+        cancelButtonColor: "#fff",
+        confirmButtonColor: "#3B3F5C",
+        confirmButtonText: "Si",
+    }).then(function (result) {
+        if (result.value) {
+            console.log(id);
+            const waitOneSecond = async () => {
+                let response = await fetch(`/delivered/${id}`);
+                let resp = await response.json();
+                console.log(resp);
+                return resp;
+            };
+            waitOneSecond().then((resp) => {
+                console.log(resp); //
+                if (resp.status === 201) {
+                    swal({
+                        title: "Exito",
+                        text: resp.message,
+                        type: "success",
+                    });
+                    refresh_table();
+                }
+            });
+        }
+    });
+}
+
+
 function Reopen(id) {
     swal({
         title: "CONFIRMAR",

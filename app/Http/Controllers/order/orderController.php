@@ -74,18 +74,20 @@ class orderController extends Controller
             ->select('or.*', 'or.status as status', 'total_valor_a_pagar', 'fecha_order', 'tird.direccion as direccion', 'or.resolucion as resolucion', 'tird.name as namethird', 'centro.name as namecentrocosto', 'total_utilidad', 'vendedor.name as nombre_vendedor')
             ->where('or.status', '=', '0') // Filtro para ordenes abiertas
             ->orWhere('or.status', '=', '1') // Filtro para ordenes cerradas
+            ->orWhere('or.status', '=', '2') // Filtro para ordenes entregadas, status = 3 eliminada
             ->get();
 
 
 
         //  $data = Sale::orderBy('id','desc');
-
         return Datatables::of($data)->addIndexColumn()
             ->addColumn('status', function ($data) {
                 if ($data->status == 1) {
                     $status = '<span class="badge bg-success">Close</span>';
+                } elseif ($data->status == 2) {
+                    $status = '<span class="badge bg-info">Deliv</span>';
                 } else {
-                    $status = '<span class="badge bg-danger">Open</span>';
+                    $status = '<span class="badge bg-warning">Open</span>';
                 }
                 return $status;
             })
@@ -124,14 +126,14 @@ class orderController extends Controller
 						    <i class="fas fa-directions"></i>
 					    </a>
 
-                         <button class="btn btn-dark" title="EditarCabezaOrden" onclick="edit(' . $data->id . ');">
+                         <button class="btn btn-dark" title="Editar CabezaOrden" onclick="edit(' . $data->id . ');">
 						    <i class="fas fa-edit"></i>
 					    </button>
 					   
                         <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="PdfOrdenPendiente" target="_blank">
                         <i class="far fa-file-pdf"></i>
 					    </a>
-                        <button class="btn btn-dark" title="BorrarOrden" onclick="Confirm(' . $data->id . ');">
+                        <button class="btn btn-dark" title="Borrar Orden" onclick="Confirm(' . $data->id . ');">
 						    <i class="fas fa-trash"></i>
 					    </button>					  
                         </div>
@@ -140,9 +142,12 @@ class orderController extends Controller
                 } else {
 
                     if (Gate::allows('open-order')) {
-                        $btn = '
-                            <div class="text-center">                              
-                                  <button class="btn btn-dark" title="AbrirPedido" onclick="Reopen(' . $data->id . ');">
+                        $btn = '                       
+                            <div class="text-center"> 
+                            <button class="btn btn-dark" title="Confirmar Entrega" onclick="Delivered(' . $data->id . ');">
+						            <i class="fas fa-check"></i>
+					             </button>                             
+                                  <button class="btn btn-dark" title="Abrir Pedido" onclick="Reopen(' . $data->id . ');">
 						            <i class="fas fa-box-open"></i>
 					             </button>
                                 <a href="order/showPDFOrder/' . $data->id . '" class="btn btn-dark" title="Pdf pedido cerrado" target="_blank">
@@ -655,6 +660,27 @@ class orderController extends Controller
 
     }
 
+    public function delivered(Request $request, $id)
+    {
+        try {
+
+            $venta = Order::where('id', $id)->latest()->first(); // el ultimo mas reciente;
+            $venta->user_id = $request->user()->id;
+            $venta->status = '2';
+            $venta->fecha_cierre = now()->addDays(-2);
+            $venta->save();
+            return response()->json([
+                "status" => 201,
+                "message" => "Pedido # $id engregado con exito",
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "status" => 500,
+                "message" => (array) $th
+            ]);
+        }
+    }
+
     public function reopen(Request $request, $id)
     {
         try {
@@ -680,7 +706,7 @@ class orderController extends Controller
     {
         try {
             $updateOrder = Order::firstWhere('id', $id);
-            $updateOrder->status = '2';
+            $updateOrder->status = '3';
             $updateOrder->save();
             return response()->json([
                 "status" => 201,
