@@ -48,107 +48,28 @@ class reportecomprarequeridaController extends Controller
         session(['dateFrom' => $dateFrom, 'dateTo' => $dateTo]);
 
         $data = DB::select("
-        SELECT
-        fecha_compra,
-        factura_compra,
-        nombre_proveedor,
-        product_code,
-        product_name,
-        category_name,
-        SUM(cant_compras_lote) AS total_cant_compras_lote,
-        SUM(costo_compras_lote) AS total_costo_compras_lote,
-        SUM(cant_compras_comp) AS total_cant_compras_comp,
-        SUM(precio_compras_comp) AS total_precio_compras_comp,
-        SUM(subtotal_compras_comp) AS total_subtotal_compras_comp,
-        SUM(cant_compras_lote) + SUM(cant_compras_comp) AS total_cantidades,
-        SUM(costo_compras_lote) + SUM(subtotal_compras_comp) AS total_costo,
-        (SUM(costo_compras_lote) + SUM(subtotal_compras_comp)) / (SUM(cant_compras_lote) + SUM(cant_compras_comp)) AS costo_promedio
-    FROM
-    (
-        -- Primera consulta
-        SELECT
-            fecha_compra,
-            factura_compra,
-            nombre_proveedor,
-            product_code,
-            product_name,
-            category_name,
-            cant_compras_lote,
-            costo_compras_lote,
-            cant_compras_comp,
-            precio_compras_comp,
-            subtotal_compras_comp
-        FROM
-        (
-            -- Consulta 1
-            SELECT
-                beneficiores.fecha_beneficio as fecha_compra,
-                beneficiores.factura as factura_compra,
-                COALESCE(beneficiores_third.name) as nombre_proveedor,  
-                P.code as product_code,
-                P.name as product_name,
-                categories.name as category_name,       
-                desposteres.peso as cant_compras_lote,  
-                COALESCE(desposteres.costo, 0) as costo_compras_lote,  
-                '0' as cant_compras_comp,
-                '0' as precio_compras_comp,
-                '0' as subtotal_compras_comp
-            FROM beneficiores
-            LEFT JOIN desposteres ON beneficiores.id = desposteres.beneficiores_id
-            LEFT JOIN products AS P ON desposteres.products_id = P.id
-            LEFT JOIN categories ON categories.id = P.category_id
-            LEFT JOIN thirds AS beneficiores_third ON beneficiores.thirds_id = beneficiores_third.id
-            WHERE (desposteres.beneficiores_id IS NOT NULL)
-            AND (beneficiores.fecha_beneficio BETWEEN '$dateFrom' AND '$dateTo' OR beneficiores.fecha_beneficio IS NULL)
-            
-            UNION ALL
-            
-            -- Consulta 2
-            SELECT
-                beneficiocerdos.fecha_beneficio as fecha_compra,
-                beneficiocerdos.factura as factura_compra,
-                COALESCE(beneficiocerdos_third.name) as nombre_proveedor,    
-                products.code as product_code,
-                products.name as product_name,
-                categories.name as category_name,       
-                despostecerdos.peso as cant_compras_lote,  
-                COALESCE(despostecerdos.costo, 0) as costo_compras_lote,
-                '0' as cant_compras_comp,
-                '0' as precio_compras_comp,
-                '0' as subtotal_compras_comp
-            FROM beneficiocerdos
-            LEFT JOIN despostecerdos ON beneficiocerdos.id = despostecerdos.beneficiocerdos_id
-            LEFT JOIN products ON despostecerdos.products_id = products.id
-            LEFT JOIN categories ON categories.id = products.category_id
-            LEFT JOIN thirds AS beneficiocerdos_third ON beneficiocerdos.thirds_id = beneficiocerdos_third.id
-            WHERE (despostecerdos.beneficiocerdos_id IS NOT NULL)
-            AND (beneficiocerdos.fecha_beneficio BETWEEN '$dateFrom' AND '$dateTo' OR beneficiocerdos.fecha_beneficio IS NULL)
-            
-            UNION ALL
-            
-            -- Consulta 3
-            SELECT
-                compensadores.fecha_compensado as fecha_compra,
-                compensadores.factura as factura_compra,
-                COALESCE(compensandores_third.name) as nombre_proveedor,  
-                products.code as product_code,
-                products.name as product_name,
-                categories.name as category_name,       
-                '0' as cant_compras_lote,
-                '0' as costo_compras_lote,
-                compensadores_details.peso as cant_compras_comp,  
-                compensadores_details.pcompra as precio_compras_comp,
-                compensadores_details.subtotal as subtotal_compras_comp
-            FROM compensadores
-            LEFT JOIN compensadores_details ON compensadores.id = compensadores_details.compensadores_id
-            LEFT JOIN products ON compensadores_details.products_id = products.id
-            LEFT JOIN categories ON categories.id = products.category_id
-            LEFT JOIN thirds AS compensandores_third ON compensadores.thirds_id = compensandores_third.id
-            WHERE (compensadores_details.compensadores_id IS NOT NULL)
-            AND (compensadores.fecha_compensado BETWEEN '$dateFrom' AND '$dateTo' OR compensadores.fecha_compensado IS NULL)
-        ) AS combined_data
-    ) AS final_data
-    GROUP BY product_code, product_name
+        SELECT 
+        products.code as product_code,
+        products.name as product_name,
+        categories.name as category_name,
+                    orders.id AS pedido,
+                orders.fecha_order,
+                SUM(order_details.quantity) AS total_cant,
+                centro_costo_products.stock
+            FROM
+                zjgifbmb_carnicossv.orders
+                    JOIN
+                zjgifbmb_carnicossv.order_details ON orders.id = order_details.order_id
+                    JOIN
+                zjgifbmb_carnicossv.products ON order_details.product_id = products.id
+                    JOIN
+                zjgifbmb_carnicossv.categories ON products.category_id = categories.id
+                    JOIN
+                zjgifbmb_carnicossv.centro_costo_products ON products.id = centro_costo_products.products_id
+            WHERE
+                orders.fecha_order BETWEEN '$dateFrom' AND '$dateTo'
+                    AND orders.status = '1'
+            GROUP BY products.id
         ");
 
         return datatables()->of($data)

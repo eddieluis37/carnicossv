@@ -40,12 +40,12 @@
           </div>
         </div>
 
-        <div class="col-sm-6 col-md-2 mt-3">
+       <!--  <div class="col-sm-6 col-md-2 mt-3">
           <button class="btn btn-dark btn-block" onclick="exportarExcel()">
             <i class="far fa-file-excel"></i> Exportar a Excel
           </button>
         </div>
-
+ -->
         <div class="col-sm-6 col-md-2 mt-3">
           <button onclick="window.location.reload();" class="btn btn-danger" data-bs-toggle="tooltip" title="Solo en caso que requiera">Limpiar</button>
         </div>
@@ -61,14 +61,10 @@
                 <th class="table-th text-white" title="Categoria" style="text-align: center;">COD</th>
                 <th class="table-th" title="Productos" style="text-align: center;">PRODUCTO</th>
                 <th class="table-th" title="Categoria" style="text-align: center;">CAT</th>
-                <th class="table-th text-white" title="Cantidades compras lotes" style="text-align: center;">#C_LOTE</th>
-                <th class="table-th text-white" title="Costos compras lotes" style="text-align: center;">$C_LOTE</th>
-                <th class="table-th text-white" title="Cantidades compras compensadas" style="text-align: center;">#C_COMP</th>
-                <th class="table-th text-white" title="Precio compras compensadas" style="text-align: center;">$P_COMP</th>
-                <th class="table-th text-white" title="Subtotal compras compensadas" style="text-align: center;">$C_COMP</th>
-                <th class="table-th text-white" title="Total cantidades" style="text-align: center;">T#CANT</th>
-                <th class="table-th text-white" title="Total costos" style="text-align: center;">T_COSTO</th>
-                <th class="table-th text-white" title="Costo promedio" style="text-align: center;">COSTO_P</th>
+                <th class="table-th text-white" title="Numero de pedido" style="text-align: center;">#PEDIDO</th>
+                <th class="table-th text-white" title="Cantidad requiredida en compras" style="text-align: center;">$CANT_REQUIDA</th>
+                <th class="table-th text-white" title="Cantidades stock ideal" style="text-align: center;">#CANT_STOCK</th>
+               
               </tr>
             </thead>
             <tbody>
@@ -77,21 +73,17 @@
               <tr>
                 <th>Totales</th>
                 <td>
-                  <div class="col-sm-6 col-md-2 mt-3">
+                 <!--  <div class="col-sm-6 col-md-2 mt-3">
                     <a class="btn btn-dark btn-block {{(2) < 1 ? 'disabled' : '' }}" href="{{ url('report_compras_x_prod/excel' . '/' . $dateFrom. '/' . $dateTo) }}" target="_blank">
                       <i class="far fa-file-excel"></i>
                     </a>
-                  </div>
+                  </div> -->
                 </td>
+                <td></td>
                 <td></td>
                 <td>0.00</td>
                 <td>0.00</td>
-                <td>0.00</td>
-                <td>0.00</td>
-                <td>0.00</td>
-                <td>0.00</td>
-                <td>0.00</td>
-                <td>0.00</td>
+                
               </tr>
             </tfoot>
           </table>

@@ -24,7 +24,7 @@ function initializeDataTable(dateFrom = "-1", dateTo = "-1") {
         processing: true,
         serverSide: true,
         ajax: {
-            url: "/showReportComprasPorProd",
+            url: "/showReportComprasRequeridas",
             type: "GET",
             data: {
                 dateFrom: dateFrom,
@@ -65,8 +65,17 @@ function initializeDataTable(dateFrom = "-1", dateTo = "-1") {
                 },
             },
             {
-                data: "total_cant_compras_lote",
-                name: "total_cant_compras_lote",
+                data: "pedido",
+                name: "pedido",
+                render: function (data, type, row) {
+                    return (
+                        "<div style='text-align: center;'>" + data + "</div>"
+                    );
+                },
+            },
+            {
+                data: "total_cant",
+                name: "total_cant",
                 render: function (data, type, row) {
                     return (
                         "<div style='text-align: right;'>" +
@@ -76,78 +85,12 @@ function initializeDataTable(dateFrom = "-1", dateTo = "-1") {
                 },
             },
             {
-                data: "total_costo_compras_lote",
-                name: "total_costo_compras_lote",
-                render: function (data, type, row) {
-                    return (
-                        "<div style='text-align: right;'>$" +
-                        formatCantidadSinCero(data) +
-                        "</div>"
-                    );
-                },
-            },
-            {
-                data: "total_cant_compras_comp",
-                name: "total_cant_compras_comp",
+                data: "stock",
+                name: "stock",
                 render: function (data, type, row) {
                     return (
                         "<div style='text-align: right;'>" +
                         formatCantidad(data) +
-                        "</div>"
-                    );
-                },
-            },
-            {
-                data: "total_precio_compras_comp",
-                name: "total_precio_compras_comp",
-                render: function (data, type, row) {
-                    return (
-                        "<div style='text-align: right;'>$" +
-                        formatCantidadSinCero(data) +
-                        "</div>"
-                    );
-                },
-            },
-            {
-                data: "total_subtotal_compras_comp",
-                name: "total_subtotal_compras_comp",
-                render: function (data, type, row) {
-                    return (
-                        "<div style='text-align: right;'>$" +
-                        formatCantidadSinCero(data) +
-                        "</div>"
-                    );
-                },
-            },
-            {
-                data: "total_cantidades",
-                name: "total_cantidades",
-                render: function (data, type, row) {
-                    return (
-                        "<div style='text-align: right;'>" +
-                        formatCantidad(data) +
-                        "</div>"
-                    );
-                },
-            },
-            {
-                data: "total_costo",
-                name: "total_costo",
-                render: function (data, type, row) {
-                    return (
-                        "<div style='text-align: right;'>$" +
-                        formatCantidadSinCero(data) +
-                        "</div>"
-                    );
-                },
-            },
-            {
-                data: "costo_promedio",
-                name: "costo_promedio",
-                render: function (data, type, row) {
-                    return (
-                        "<div style='text-align: right;'>$" +
-                        formatCantidadSinCero(data) +
                         "</div>"
                     );
                 },
@@ -178,65 +121,8 @@ function initializeDataTable(dateFrom = "-1", dateTo = "-1") {
         footerCallback: function (row, data, start, end, display) {
             var api = this.api();
 
-            var totalCantComprasLote = api
-                .column("total_cant_compras_lote:name", { search: "applied" })
-                .data()
-                .reduce(function (a, b) {
-                    var value = parseFloat(b);
-                    return isNaN(value) ? a : a + value;
-                }, 0)
-                .toFixed(2);
-            var totalCantComprasLoteFormatted =
-                formatCantidad(totalCantComprasLote);
-
-            var totalCantComprasComp = api
-                .column("total_cant_compras_comp:name", { search: "applied" })
-                .data()
-                .reduce(function (a, b) {
-                    var value = parseFloat(b);
-                    return isNaN(value) ? a : a + value;
-                }, 0)
-                .toFixed(2);
-            var totalCantComprasCompFormatted =
-                formatCantidad(totalCantComprasComp);
-
-            var totalCostoComprasLote = api
-                .column("total_costo_compras_lote:name", { search: "applied" })
-                .data()
-                .reduce(function (a, b) {
-                    var value = parseFloat(b);
-                    return isNaN(value) ? a : a + value;
-                }, 0)
-                .toFixed(2);
-            var totalCostoComprasLoteFormatted =
-                "$" + formatCantidadSinCero(totalCostoComprasLote);
-
-            var totalPrecioComprasComp = api
-                .column("total_precio_compras_comp:name", { search: "applied" })
-                .data()
-                .reduce(function (a, b) {
-                    var value = parseFloat(b);
-                    return isNaN(value) ? a : a + value;
-                }, 0)
-                .toFixed(2);
-            var totalPrecioComprasCompFormatted =
-                "$" + formatCantidadSinCero(totalPrecioComprasComp);
-
-            var totalSubtotalComprasComp = api
-                .column("total_subtotal_compras_comp:name", {
-                    search: "applied",
-                })
-                .data()
-                .reduce(function (a, b) {
-                    var value = parseFloat(b);
-                    return isNaN(value) ? a : a + value;
-                }, 0)
-                .toFixed(2);
-            var totalSubtotalComprasCompFormatted =
-                "$" + formatCantidadSinCero(totalSubtotalComprasComp);
-
             var totalCant = api
-                .column("total_cantidades:name", { search: "applied" })
+                .column("total_cant:name", { search: "applied" })
                 .data()
                 .reduce(function (a, b) {
                     var value = parseFloat(b);
@@ -245,59 +131,9 @@ function initializeDataTable(dateFrom = "-1", dateTo = "-1") {
                 .toFixed(2);
             var totalCantFormatted = formatCantidad(totalCant);
 
-            var totalTotalCosto = api
-                .column("total_costo:name", { search: "applied" })
-                .data()
-                .reduce(function (a, b) {
-                    var value = parseFloat(b);
-                    return isNaN(value) ? a : a + value;
-                }, 0)
-                .toFixed(2);
-            var totalTotalCostoFormatted =
-                "$" + formatCantidadSinCero(totalTotalCosto);
-
-            var totalCostoPromd = api
-                .column("costo_promedio:name", { search: "applied" })
-                .data()
-                .reduce(function (a, b) {
-                    var value = parseFloat(b);
-                    return isNaN(value) ? a : a + value;
-                }, 0)
-                .toFixed(2);
-            var totalCostoPromdFormatted =
-                "$" + formatCantidadSinCero(totalCostoPromd);
-
             // Agregar los valores totales en el footer
-            $(api.column("total_cant_compras_lote:name").footer())
-                .html(totalCantComprasLoteFormatted)
-                .css("text-align", "right");
-
-            $(api.column("total_costo_compras_lote:name").footer())
-                .html(totalCostoComprasLoteFormatted)
-                .css("text-align", "right");
-
-            $(api.column("total_cant_compras_comp:name").footer())
-                .html(totalCantComprasCompFormatted)
-                .css("text-align", "right");
-
-            $(api.column("total_precio_compras_comp:name").footer())
-                .html(totalPrecioComprasCompFormatted)
-                .css("text-align", "right");
-
-            $(api.column("total_subtotal_compras_comp:name").footer())
-                .html(totalSubtotalComprasCompFormatted)
-                .css("text-align", "right");
-
-            $(api.column("total_cantidades:name").footer())
+            $(api.column("total_cant:name").footer())
                 .html(totalCantFormatted)
-                .css("text-align", "right");
-
-            $(api.column("total_costo:name").footer())
-                .html(totalTotalCostoFormatted)
-                .css("text-align", "right");
-
-            $(api.column("costo_promedio:name").footer())
-                .html(totalCostoPromdFormatted)
                 .css("text-align", "right");
         },
     });
@@ -349,7 +185,6 @@ function initializeDataTable(dateFrom = "-1", dateTo = "-1") {
             });
         }
     });
-   
 }
 
 $(document).ready(function () {

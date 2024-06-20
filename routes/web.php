@@ -248,6 +248,7 @@ Route::group(['middleware' => [('auth')]], function () {
     Route::get('reportes/compras_por_productos', [reportecompraprodController::class, 'index'])->name('reportes.compras_por_productos');
     Route::get('reportes/compras_requeridas', [reportecomprarequeridaController::class, 'index'])->name('reportes.compras_requeridas');
     Route::get('showReportComprasPorProd', [reportecompraprodController::class, 'show'])->name('showReportComprasPorProd.showlist');
+    Route::get('showReportComprasRequeridas', [reportecomprarequeridaController::class, 'show'])->name('showReportComprasRequeridas.showlist');
 
     Route::get('reportes/compras_por_proveedores', [reportecompraproveedorController::class, 'index'])->name('reportes.compras_por_proveedores');
     Route::get('showReportComprasPorProvee', [reportecompraproveedorController::class, 'show'])->name('showReportComprasPorProvee.showlist');
