@@ -12,6 +12,7 @@ const selectCentrocosto = document.querySelector("#centrocosto");
 const inputFactura = document.querySelector("#factura");
 const sale_id = document.querySelector("#ventaId");
 const contentform = document.querySelector("#contentDisable");
+const select2Cliente = document.querySelector("#cliente");
 
 $(document).ready(function () {
     $(function () {
@@ -88,8 +89,8 @@ $(document).ready(function () {
             },
         });
     });
-    $(".select2Provider").select2({
-        placeholder: "Busca un proveedor",
+    $(".select2Cliente").select2({
+        placeholder: "Busca un cliente",
         width: "100%",
         theme: "bootstrap-5",
         allowClear: true,

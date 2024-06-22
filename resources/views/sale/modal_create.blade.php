@@ -12,7 +12,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="col-md-6">
 				<div class="task-header">
 					<div class="form-group">
@@ -27,24 +26,20 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="col-md-6">
 				<div class="task-header">
 					<div class="form-group">
 						<label for="" class="form-label">Cliente</label>
-						<select class="form-control form-control-sm input " name="cliente" id="cliente" required>
+						<select class="form-control form-control-sm select2Cliente " name="cliente" id="cliente" required>
 							<option value="">Seleccione el cliente</option>
-							@foreach($clientes as $cliente)
-							<option value="{{ $cliente->id }}">{{ $cliente->name }}</option>
+							@foreach($clientes as $option)
+							<option value="{{ $option['id'] }}" data="{{$option}}">{{ $option['name'] }}</option>
 							@endforeach
 						</select>
 						<span class="text-danger error-message"></span>
 					</div>
 				</div>
 			</div>
-
-
-
 			<div class="col-md-6">
 				<div class="task-header">
 					<div class="form-group">
@@ -59,7 +54,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="col-md-6">
 				<div class="task-header">
 					<div class="form-group">
@@ -74,7 +68,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="col-md-6">
 				<div class="task-header">
 					<div class="form-group">
@@ -89,8 +82,6 @@
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 	</div>
 </div>
