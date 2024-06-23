@@ -79,6 +79,12 @@
           </div>
         </div>
 
+        <div class="col-sm-6 col-md-2 mt-3">
+          <button class="btn btn-dark btn-block" onclick="exportarExcel()">
+            <i class="far fa-file-excel"></i> Exportar a Excel
+          </button>
+        </div>
+
 
       </div>
       <div class="table-responsive mt-3">
@@ -122,3 +128,13 @@
 <script src="{{asset('code/js/asignarpreciosprod/code-app-index.js')}}"></script>
 
 @endsection
+
+<script>
+    // Función para exportar a Excel
+    function exportarExcel() {
+      const listaprecio = $("#listaprecio").val();
+      const categoria = $("#categoria").val();
+      const url = `../report_asignar_precios_prod/excel/${listaprecio}/${categoria}`;
+      window.open(url, "_blank");
+    }
+  </script>

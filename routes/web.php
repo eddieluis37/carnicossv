@@ -92,6 +92,7 @@ use App\Http\Controllers\reportes\reportecompraproveedorController;
 use App\Http\Controllers\reportes\reporteventaprodclientController;
 use App\Http\Controllers\reportes\reporteventaprodController;
 use App\Http\Controllers\reportes\reportecomprarequeridaController;
+use App\Http\Controllers\reportes\reporteasignarpreciosController;
 
 /************************************************* */
 
@@ -236,6 +237,7 @@ Route::group(['middleware' => [('auth')]], function () {
     Route::get('asignar_precios_prod', [AsignarPreciosProdController::class, 'index'])->name('APPShow');
     Route::get('showAPPSwitch', [AsignarPreciosProdController::class, 'show'])->name('showAPPSwitch');
     Route::post('/updateAPPSwitch', [AsignarPreciosProdController::class, 'updateAPPSwitch'])->name('updateAPPSwitch');
+    Route::get('report_asignar_precios_prod/excel/{f1}/{f2}', [reporteasignarpreciosController::class, 'reporteExcel']);
 
     /************************* REPORTES NUEVOS ********************************** */
 
