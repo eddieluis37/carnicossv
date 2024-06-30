@@ -125,6 +125,9 @@ btnAdd.addEventListener("click", (e) => {
             $("#producto").val("").trigger("change");
             formDetail.reset();
             showData(result);
+
+            // Recarga la pagina para evitar que se renombren productos en la edición
+            window.location.reload();
         }
         if (result.status === 0) {
             let errors = result.errors;
@@ -210,7 +213,7 @@ const showData = (data) => {
             confirmButtonText: "Aceptar",
             denyButtonText: `Cancelar`,
         });
-    }   
+    }
 };
 
 price.addEventListener("change", function () {
@@ -251,10 +254,11 @@ btnRemove.addEventListener("click", (e) => {
 });
 
 const codigoBarrasInput = document.querySelector("#codigoBarras");
-codigoBarrasInput.addEventListener("input", function() {
+codigoBarrasInput.addEventListener("input", function () {
     const codigoBarras = codigoBarrasInput.value;
     console.log("Código de barras escaneado:", codigoBarras); // Imprimir el código de barras en la consola
-    if (codigoBarras.length === 13) { // Longitud típica de un código de barras EAN-13
+    if (codigoBarras.length === 13) {
+        // Longitud típica de un código de barras EAN-13
         // Realiza una solicitud AJAX para buscar el producto por el código de barras
         buscarProductoPorCodigoBarras(codigoBarras);
     }
@@ -265,15 +269,15 @@ function buscarProductoPorCodigoBarras(codigoBarras) {
         url: "/buscar-producto-por-codigo-barras",
         type: "GET",
         data: {
-            codigoBarras: codigoBarras
+            codigoBarras: codigoBarras,
         },
-        success: function(response) {
+        success: function (response) {
             // Actualiza los valores en el formulario con la información del producto encontrado
             $("#producto").val(response.producto_id).trigger("change");
             // Otras actualizaciones de campos según la respuesta
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.log(error);
-        }
+        },
     });
 }
