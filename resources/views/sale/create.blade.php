@@ -150,6 +150,13 @@
 											</div>
 										</div>
 									</div>
+									<!-- <div class="col-md-1">
+										<div class="" style="margin-top:30px;">
+											<div class="d-grid gap-2">
+												<button onclick="window.location.reload();" class="btn btn-danger" data-bs-toggle="tooltip" title="Solo en caso que edites un producto, y requieras ingresar uno nuevo">Limpiar</button>
+											</div>
+										</div>
+									</div> -->
 
 									@can('Admin_Menu')
 									<div class="col-md-2">

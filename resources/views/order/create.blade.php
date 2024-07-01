@@ -171,7 +171,13 @@
 										</div>
 									</div>
 								</div>
-
+								<div class="col-md-2 d-flex justify-content-center align-items-center">
+									<div style="margin-top:0px;">
+										<div class="d-grid gap-2">
+											<button onclick="window.location.reload();" class="btn btn-danger" data-bs-toggle="tooltip" title="Solo en caso que edites un producto, y requieras ingresar uno nuevo">Limpiar</button>
+										</div>
+									</div>
+								</div>
 						</form>
 					</div>
 				</div>
@@ -187,7 +193,7 @@
 						<thead class="text-white" style="background: #3B3F5C">
 							<tr>
 								<th class="table-th text-white"> Producto </th>
-								<th class="table-th text-white">Cant</th>							
+								<th class="table-th text-white">Cant</th>
 								<th class="table-th text-white">COSTO</th>
 								<th class="table-th text-white">Valor.U</th>
 								<th class="table-th text-white">%Des</th>
@@ -213,7 +219,7 @@
 								<!--td>{{$proddetail->id}}</td-->
 
 								<td>{{$proddetail->nameprod}}</td>
-								<td>{{ number_format($proddetail->quantity, 2, ',', '.')}}KG</td>								
+								<td>{{ number_format($proddetail->quantity, 2, ',', '.')}}KG</td>
 								<td>${{ number_format($proddetail->costo_prod, 0, ',', '.')}}</td>
 								<td>${{ number_format($proddetail->price, 0, ',', '.')}}</td>
 								<td>{{$proddetail->porc_desc_prod}}%</td>
@@ -262,7 +268,7 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td></td>								
+								<td></td>
 								<th>${{number_format($arrayTotales['TotalValorAPagar'], 0, ',', '.')}} </th>
 							</tr>
 						</tfoot>
