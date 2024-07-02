@@ -170,7 +170,7 @@ class saleController extends Controller
         ]);
     }
 
-    public function cargarInventariocr($ventaId)
+    /* public function cargarInventariocr($ventaId)
     {
         $currentDateTime = Carbon::now();
         $formattedDate = $currentDateTime->format('Y-m-d');
@@ -224,18 +224,18 @@ class saleController extends Controller
             'message' => 'Cargado al inventario exitosamente',
             'compensadores' => $compensadores
         ]);
-    }
+    } */
 
     // Opcion 2 sin Eloquent
-   /*  public function cargarInventariocr($ventaId)
+    public function cargarInventariocr($ventaId)
     {
-      
+
         $compensadores = DB::table('sales')
             ->where('id', $ventaId)
             ->where('status', '1')
             ->get();
 
-       
+
         $ventadetalle = DB::table('sale_details')
             ->where('sale_id', $ventaId)
             ->where('status', '1')
@@ -255,7 +255,7 @@ class saleController extends Controller
                 ->where('status', '1')
                 ->where('product_id', $centroCostoProduct->products_id)
                 ->sum('quantity');
-             //   ->value('quantity');
+            //   ->value('quantity');
 
             $accumulatedTotalBruto = DB::table('sale_details')
                 ->where('sale_id', $ventaId)
@@ -286,7 +286,7 @@ class saleController extends Controller
         }
 
         // Clear the temporary table
-           DB::table('table_temporary_accumulated_sales')->truncate();
+        DB::table('table_temporary_accumulated_sales')->truncate();
 
         // Check and call cuentasPorCobrar function
         if (($compensadores[0]->valor_a_pagar_credito) > 0) {
@@ -298,7 +298,7 @@ class saleController extends Controller
             'message' => 'Cargado al inventario exitosamente',
             'compensadores' => $compensadores
         ]);
-    } */
+    }
 
 
 

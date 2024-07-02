@@ -66,7 +66,7 @@ class inventoryController extends Controller
                     ->orWhere('ccp.tipoinventario', 'inicial');
             })
             ->where('pro.category_id', $categoriaId)
-            ->where('pro.status', 1)
+            ->where('pro.status', '1')
             ->get();
 
         // Calculo de la stock ideal y venta_real
