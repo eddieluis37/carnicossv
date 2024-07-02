@@ -9,9 +9,9 @@
 					<b>Ventas | Listado </b>
 				</h4>
 				<ul class="tabs tab-pills">
-					<li>
+					<!-- <li>
 						<a href="{{ route('cargar.inventario.masivo') }}" class="btn btn-primary">Cargar Inventario Masivo</a>
-					</li>
+					</li> -->
 					<li>
 						<a href="javascript:void(0)" onclick="showModalcreate()" class="tabmenu bg-dark" data-toggle="modal" data-target="#modal-create-compensado" title="Nueva venta por domicilio">Domicilio</a>
 					</li>
