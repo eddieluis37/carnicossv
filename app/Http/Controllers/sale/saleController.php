@@ -160,7 +160,7 @@ class saleController extends Controller
 
     public function cargarInventarioMasivo()
     {
-        for ($ventaId = 672; $ventaId <= 1127; $ventaId++) {
+        for ($ventaId = 484; $ventaId <= 592; $ventaId++) {
             $this->cargarInventariocr($ventaId);
         }
 
@@ -225,6 +225,82 @@ class saleController extends Controller
             'compensadores' => $compensadores
         ]);
     }
+
+    // Opcion 2 sin Eloquent
+   /*  public function cargarInventariocr($ventaId)
+    {
+      
+        $compensadores = DB::table('sales')
+            ->where('id', $ventaId)
+            ->where('status', '1')
+            ->get();
+
+       
+        $ventadetalle = DB::table('sale_details')
+            ->where('sale_id', $ventaId)
+            ->where('status', '1')
+            ->get();
+
+        $product_ids = $ventadetalle->pluck('product_id');
+        $centrocosto_id = '1';
+        $centroCostoProducts = DB::table('centro_costo_products')
+            ->whereIn('products_id', $product_ids)
+            ->where('centrocosto_id', $centrocosto_id)
+            ->get();
+
+        // Calculate accumulated values and insert into temporary table
+        foreach ($centroCostoProducts as $centroCostoProduct) {
+            $accumulatedQuantity = DB::table('sale_details')
+                ->where('sale_id', $ventaId)
+                ->where('status', '1')
+                ->where('product_id', $centroCostoProduct->products_id)
+                ->sum('quantity');
+             //   ->value('quantity');
+
+            $accumulatedTotalBruto = DB::table('sale_details')
+                ->where('sale_id', $ventaId)
+                ->where('status', '1')
+                ->where('product_id', $centroCostoProduct->products_id)
+                ->sum('total_bruto');
+
+            DB::table('table_temporary_accumulated_sales')->insert([
+                'product_id' => $centroCostoProduct->products_id,
+                'accumulated_quantity' => $accumulatedQuantity,
+                'accumulated_total_bruto' => $accumulatedTotalBruto
+            ]);
+
+            // Update Centro_costo_product records
+            $centroCostoProduct = DB::table('centro_costo_products')
+                ->where('products_id', $centroCostoProduct->products_id)
+                ->first();
+
+            $centroCostoProduct->venta += $accumulatedQuantity;
+            $centroCostoProduct->cto_venta_total += $accumulatedTotalBruto;
+
+            DB::table('centro_costo_products')
+                ->where('products_id', $centroCostoProduct->products_id)
+                ->update([
+                    'venta' => $centroCostoProduct->venta,
+                    'cto_venta_total' => $centroCostoProduct->cto_venta_total
+                ]);
+        }
+
+        // Clear the temporary table
+           DB::table('table_temporary_accumulated_sales')->truncate();
+
+        // Check and call cuentasPorCobrar function
+        if (($compensadores[0]->valor_a_pagar_credito) > 0) {
+            // Call cuentasPorCobrar function
+        }
+
+        return response()->json([
+            'status' => 1,
+            'message' => 'Cargado al inventario exitosamente',
+            'compensadores' => $compensadores
+        ]);
+    } */
+
+
 
     public function cuentasPorCobrar($ventaId)
     {
