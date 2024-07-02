@@ -95,6 +95,8 @@ class ProductsController extends Component
 			'levelproductid' => 'required|not_in:Elegir',
 			'code' => 'required',
 			'price_fama' => 'required',
+			'iva' => 'required',
+			'otro_impuesto' => 'required',
 			'alerts' => 'required',
 
 		];
@@ -108,7 +110,8 @@ class ProductsController extends Component
 			'name.min' => 'El nombre del producto debe tener al menos 3 caracteres',
 			'code.required' => 'El codigo es requerido',
 			'price_fama.required' => 'El precio mínimo es requerido',
-			'iva.required' => 'El I es requerido',
+			'iva.required' => 'El Iva es requerido',
+			'otro_impuesto.required' => 'El Impuesto saludable es requerido',
 			'alerts.required' => 'Ingresa el valor mínimo en existencias',
 
 		];
@@ -242,8 +245,8 @@ class ProductsController extends Component
 			}
 		}
 
-		$this->resetUI();
 		$this->emit('product-updated', 'Producto Actualizado');		
+		$this->resetUI();	
 	}
 
 
