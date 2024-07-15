@@ -75,7 +75,7 @@ use App\Http\Controllers\listaprecio\listaPrecioController;
 use App\Http\Controllers\ReportController;
 
 use App\Http\Controllers\ImportStockFisicoController;
-use App\Http\Controllers\inventory\inventoryUtilidadController;
+use App\Http\Controllers\inventory\inventoryUtilidadHistoricoController;
 use App\Http\Controllers\notacredito\notacreditoController;
 use App\Http\Controllers\notacredito\pdfNotacreditoController;
 use App\Http\Controllers\notadebito\notadebitoController;
@@ -261,8 +261,6 @@ Route::group(['middleware' => [('auth')]], function () {
     Route::get('inventory/diary', [diaryController::class, 'index'])->name('inventory.diary');
     Route::get('inventory/consolidado', [inventoryController::class, 'index'])->name('inventory.consolidado');
     Route::get('showinventory', [diaryController::class, 'show'])->name('inventory.showlist');
-    //Route::post('showinventory', [diaryController::class,'show'])->name('inventory.showinvent');
-    Route::get('inventory/mensual', [mensualController::class, 'index'])->name('inventory.mensual');
 
     Route::get('inventory/centro_costo_products', [CentroCostoProductController::class, 'index'])->name('inventory.showccp');
 
@@ -279,9 +277,10 @@ Route::group(['middleware' => [('auth')]], function () {
     Route::get('inventory/consolidado_historico', [inventoryController::class, 'indexhistorico'])->name('inventory.consolidadohistorico');
     Route::get('totaleshist', [inventoryController::class, 'totaleshist'])->name('inventory.totaleshist');    
 
-    /*****************************INVENTORY-HISTORICO-UTILIDAD*******************************************/
-    Route::get('inventory/utilidad', [inventoryUtilidadController::class, 'index'])->name('inventory.utilidad');
-    Route::get('showConsolidadoUtilidad', [inventoryUtilidadController::class, 'show'])->name('inventory.showUtilidad');
+    /*****************************INVENTORY-HISTORICO-UTILIDAD*******************************************/   
+    Route::get('inventory/showhistutilidad', [inventoryUtilidadHistoricoController::class, 'showhistutilidad'])->name('inventory.showhistutilidad');
+    Route::get('inventory/consolidado_histutilidad', [inventoryUtilidadHistoricoController::class, 'indexhistutilidad'])->name('inventory.consolidadohistutilidad');
+    Route::get('totaleshistutilidad', [inventoryUtilidadHistoricoController::class, 'totaleshistutilidad'])->name('inventory.totaleshistutilidad'); 
 
     /*****************************CARGAR-VENTAS*******************************************/
     Route::get('inventory/cargar_ventas', [CargarVentasController::class, 'index'])->name('inventory.showcvc');

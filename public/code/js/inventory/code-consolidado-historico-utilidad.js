@@ -8,13 +8,13 @@ var dataTable;
 function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="2000-01-01", fechaf="2000-01-01") {
     dataTable = $("#tableInventory").DataTable({
         paging: true,
-        pageLength: 50,
+        pageLength: 500,
         autoWidth: false,
         processing: true,
         serverSide: true,
         scrollX: true,
         ajax: {
-            url: "showConsolidadoHistoricoUtilidad",
+            url: "showhistutilidad",
             type: "GET",
             data: {
                 centrocostoId: centrocostoId,
@@ -242,7 +242,7 @@ function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="20
 function cargarTotales(centrocostoId = "-1", categoriaId = "-1",fechai="2000-01-01", fechaf="2000-01-01") {
     $.ajax({
         type: "GET",
-        url: "/totaleshist",
+        url: "/totaleshistutilidad",
         data: {
             centrocostoId: centrocostoId,
             categoriaId: categoriaId,

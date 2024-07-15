@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class inventoryUtilidadHistoricoController extends Controller
 {
 
-    public function index()
+    public function indexhistutilidad()
     {
         $startDate = '2023-05-01';
         $endDate = '2023-05-08';
@@ -26,10 +26,10 @@ class inventoryUtilidadHistoricoController extends Controller
         $response = $this->totaleshistutilidad(request()); // Call the totales method
         $totalStock = $response->getData()->totalStock; // Retrieve the totalStock value from the response
 
-        return view('inventory.consolidado_historicoutilidad', compact('category', 'centros', 'startDate', 'endDate', 'totalStock'));
+        return view('inventory.consolidado_histutilidad', compact('category', 'centros', 'startDate', 'endDate', 'totalStock'));
     }
    
-    public function show(Request $request)
+    public function showhistutilidad(Request $request)
     {   
         $centrocostoId = $request->input('centrocostoId');
         $categoriaId = $request->input('categoriaId');
@@ -78,24 +78,6 @@ class inventoryUtilidadHistoricoController extends Controller
             ->make(true);
     }  
 
-    public function indexhistoricoutilidad()
-    {
-        $startDate = '2023-05-01';
-        $endDate = '2023-05-08';
-
-        /* $category = Category::whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8, 9])->orderBy('name', 'asc')->get(); */
-
-        $category = Category::orderBy('name', 'asc')->get();
-        $centros = Centrocosto::Where('status', 1)->get();
-
-        // llama al metodo para calcular el stock
-        //   $this->totales(request());
-        $response = $this->totaleshistutilidad(request()); // Call the totales method
-        $totalStock = $response->getData()->totalStock; // Retrieve the totalStock value from the response
-
-        return view('inventory.consolidado_historicoutilidad', compact('category', 'centros', 'startDate', 'endDate', 'totalStock'));
-    }
-
     public function totaleshistutilidad(Request $request)
     {
         $centrocostoId = $request->input('centrocostoId');
@@ -109,15 +91,14 @@ class inventoryUtilidadHistoricoController extends Controller
             ->select(
                 'cat.name as namecategoria',
                 'pro.name as nameproducto',
-                'ccp.invinicial as invinicial',
-                'ccp.compralote as compraLote',
-                'ccp.alistamiento',
-                'ccp.compensados as compensados',
-                'ccp.trasladoing as trasladoing',
-                'ccp.trasladosal as trasladosal',
-                'ccp.venta as venta',
-                'ccp.notacredito as notacredito',
-                'ccp.notadebito as notadebito',
+                'ccp.cto_invinicial_total as invinicial',
+                'ccp.cto_compralote_total as compraLote',           
+                'ccp.cto_compensados_total as compensados',
+                'ccp.cto_trasladoing_total as trasladoing',
+                'ccp.cto_trasladosal_total as trasladosal',
+                'ccp.cto_venta_total as venta',
+                'ccp.cto_notacredito as notacredito',
+                'ccp.cto_notadebito as notadebito',
                 'ccp.stock as stock',
                 'ccp.fisico as fisico'
             )
