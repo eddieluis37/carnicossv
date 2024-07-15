@@ -23,7 +23,7 @@
     <div class="widget widget-chart-one">
       <div class="card text-center" style="background: #3B3F5C">
         <div class="m-2">
-          <h4 style="color:white;"><strong>Histórico de Inventarios KG</strong></h3>
+          <h4 style="color:white;"><strong>Histórico de Inventarios de Utilidad</strong></h3>
         </div>
       </div>
       <div class="row g-3 mt-3">
@@ -185,19 +185,19 @@
               <th class="table-th text-white">CAT</th>
               <th class="table-th text-white">PRODUCTO</th>
               <th class="table-th text-white">FECHA</th>
-              <th class="table-th text-white">Nro</th>
-              <th class="table-th text-white">INV INICIAL</th>
-              <th class="table-th text-white">COMPRA LOTE</th>
-              <th class="table-th text-white">ALIST</th>
-              <th class="table-th text-white">COMPEN</th>
-              <th class="table-th text-white">TRAS ING</th>
-              <th class="table-th text-white">TRAS SAL</th>
-              <th class="table-th text-white">VENTA</th>
-              <th class="table-th text-white">STOCK IDEAL</th>
-              <th class="table-th text-white">INV FINAL</th>
-              <th class="table-th text-white">DISPO</th>
-              <th class="table-th text-white">MERMA</th>
-              <th class="table-th text-white">%MERMA</th>
+              <th class="table-th text-white">NRO</th>
+              <th class="table-th text-white">$.INICIAL</th>
+              <th class="table-th text-white">$.LOTES</th>              
+              <th class="table-th text-white">$.COMPEN</th>
+              <th class="table-th text-white">$.TI</th>
+              <th class="table-th text-white">$.TS</th>
+              <th class="table-th text-white">$.IFINAL</th>
+              <th class="table-th text-white">$.COSTO</th>
+              <th class="table-th text-white">$.SALE</th>
+              <th class="table-th text-white">$.NC</th>
+              <th class="table-th text-white">$.ND</th>
+              <th class="table-th text-white">$.TV</th>
+              <th class="table-th text-white">$.UT</th>
             </tr>
           </thead>
           <tbody>
@@ -231,5 +231,5 @@
 </div>
 @endsection
 @section('script')
-<script src="{{asset('code/js/inventory/code-consolidado-historico.js')}} " type="module"></script>
+<script src="{{asset('code/js/inventory/code-consolidado-historico-utilidad.js')}} " type="module"></script>
 @endsection

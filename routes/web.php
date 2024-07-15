@@ -273,14 +273,13 @@ Route::group(['middleware' => [('auth')]], function () {
 
     Route::post('cargarInventariohist', [inventoryController::class, 'cargarInventariohist'])->name('cargarInventariohist');
     Route::post('/updateCcpInventory', [CentroCostoProductController::class, 'updateCcpInventory'])->name('inventory.updateCcpInventory999');
-
+ 
+    /*****************************INVENTORY-HISTORICO-KG****************************************** */
     Route::get('inventory/showhistorico', [inventoryController::class, 'showhistorico'])->name('inventory.showhistorico');
     Route::get('inventory/consolidado_historico', [inventoryController::class, 'indexhistorico'])->name('inventory.consolidadohistorico');
-    Route::get('totaleshist', [inventoryController::class, 'totaleshist'])->name('inventory.totaleshist');
-    //Route::post('/updateCcpInventory', 'CentroCostoProductController@updateCcpInventory')->name('updateCcpInventory');
+    Route::get('totaleshist', [inventoryController::class, 'totaleshist'])->name('inventory.totaleshist');    
 
-    /*****************************INVENTORY UTILIDAD ****************************************** */
-
+    /*****************************INVENTORY-HISTORICO-UTILIDAD*******************************************/
     Route::get('inventory/utilidad', [inventoryUtilidadController::class, 'index'])->name('inventory.utilidad');
     Route::get('showConsolidadoUtilidad', [inventoryUtilidadController::class, 'show'])->name('inventory.showUtilidad');
 

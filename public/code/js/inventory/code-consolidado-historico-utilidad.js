@@ -8,13 +8,13 @@ var dataTable;
 function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="2000-01-01", fechaf="2000-01-01") {
     dataTable = $("#tableInventory").DataTable({
         paging: true,
-        pageLength: 500,
+        pageLength: 50,
         autoWidth: false,
         processing: true,
         serverSide: true,
         scrollX: true,
         ajax: {
-            url: "showhistorico",
+            url: "showConsolidadoHistoricoUtilidad",
             type: "GET",
             data: {
                 centrocostoId: centrocostoId,
