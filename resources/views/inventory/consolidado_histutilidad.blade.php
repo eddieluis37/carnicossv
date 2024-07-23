@@ -179,7 +179,7 @@
       </div>  
 
       <div class="table-responsive mt-3">
-        <table id="tableInventory" class="table table-striped mt-1">
+        <table id="tableHistutilidad" class="table table-striped mt-1">
           <thead class="text-white" style="background: #3B3F5C">
             <tr>
               <th class="table-th text-white">CAT</th>
@@ -190,14 +190,10 @@
               <th class="table-th text-white">$.LOTES</th>              
               <th class="table-th text-white">$.COMPEN</th>
               <th class="table-th text-white">$.TI</th>
-              <th class="table-th text-white">$.TS</th>
-              <th class="table-th text-white">$.IFINAL</th>
-              <th class="table-th text-white">$.COSTO</th>
+              <th class="table-th text-white">$.TS</th>            
               <th class="table-th text-white">$.SALE</th>
               <th class="table-th text-white">$.NC</th>
-              <th class="table-th text-white">$.ND</th>
-              <th class="table-th text-white">$.TV</th>
-              <th class="table-th text-white">$.UT</th>
+              <th class="table-th text-white">$.ND</th>         
             </tr>
           </thead>
           <tbody>

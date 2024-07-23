@@ -51,20 +51,13 @@ class inventoryUtilidadHistoricoController extends Controller
                 'ccp.cto_trasladosal_total as trasladosal',
                 'ccp.cto_venta_total as venta',
                 'ccp.cto_notacredito as notacredito',
-                'ccp.cto_notadebito as notadebito',
-                'ccp.stock as stock',
-                'ccp.fisico as fisico',
-                'ccp.products_id as products_id',
-                DB::raw('(pro.cost * ccp.fisico) as invfinaltotal'),
-                'ccp.costos as costos',
-                DB::raw('((ccp.cto_venta_total - ccp.cto_notacredito) +  ccp.cto_notadebito) as totalventa'),
-                DB::raw('(ccp.total_venta - ccp.costos) as utilidad'),
-                DB::raw('((ccp.utilidad / ccp.total_venta) * 100) as porc_utilidad'),
+                'ccp.cto_notadebito as notadebito',                
+               
             )
             ->where('ccp.centrocosto_id', $centrocostoId)
             ->where('pro.category_id', $categoriaId)
             ->where('pro.status', 1)
-            ->whereBetween('fecha', [$fechai, $fechaf])
+            ->whereBetween('fecha', [$fechai, $fechaf])  
             ->get();
 
      /*  

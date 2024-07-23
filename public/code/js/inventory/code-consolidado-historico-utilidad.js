@@ -1,12 +1,16 @@
-
 const token = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
 
 var dataTable;
 
-function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="2000-01-01", fechaf="2000-01-01") {
-    dataTable = $("#tableInventory").DataTable({
+function initializeDataTable(
+    centrocostoId = "-1",
+    categoriaId = "-1",
+    fechai = "2000-01-01",
+    fechaf = "2000-01-01"
+) {
+    dataTable = $("#tableHistutilidad").DataTable({
         paging: true,
         pageLength: 500,
         autoWidth: false,
@@ -25,18 +29,32 @@ function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="20
         },
         columns: [
             { data: "namecategoria", name: "namecategoria" },
-            { data: "nameproducto", name: "nameproducto" },
+            {
+                data: "nameproducto",
+                name: "nameproducto",
+                render: function (data) {
+                    let subStringData = data.substring(0, 25).toLowerCase();
+                    let capitalizedSubString =
+                        subStringData.charAt(0).toUpperCase() +
+                        subStringData.slice(1);
+                    if (data.length > 25) {
+                        return `<span style="font-size: smaller;" title="${data}">${capitalizedSubString}.</span>`;
+                    } else {
+                        /*   return `<span style="font-size: smaller;">${data.toLowerCase()}</span>`; */
+                        return `<span style="font-size: smaller;">${capitalizedSubString}</span>`;
+                    }
+                },
+            },
             { data: "fecha", name: "fecha" },
             { data: "consecutivo", name: "consecutivo" },
             { data: "invinicial", name: "invinicial" },
             { data: "compraLote", name: "compraLote" },
-            { data: "alistamiento", name: "alistamiento" },
             { data: "compensados", name: "compensados" },
             { data: "trasladoing", name: "trasladoing" },
             { data: "trasladosal", name: "trasladosal" },
             { data: "venta", name: "venta" },
-            { data: "stock", name: "stock" },
-            { data: "fisico", name: "fisico" },
+            { data: "notacredito", name: "notacredito" },
+            { data: "notadebito", name: "notadebito" },
 
             {
                 data: null,
@@ -44,15 +62,10 @@ function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="20
                 render: function (data, type, row) {
                     var invinicial = parseFloat(row.invinicial);
                     var compraLote = parseFloat(row.compraLote);
-                    var alistamiento = parseFloat(row.alistamiento);
                     var compensados = parseFloat(row.compensados);
                     var trasladoing = parseFloat(row.trasladoing);
                     var disponible =
-                        invinicial +
-                        compraLote +
-                        alistamiento +
-                        compensados +
-                        trasladoing;
+                        invinicial + compraLote + compensados + trasladoing;
                     return disponible.toFixed(2);
                 },
             },
@@ -61,7 +74,7 @@ function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="20
                 data: null,
                 name: "merma",
                 render: function (data, type, row) {
-                    var merma = row.fisico - row.stock;
+                    var merma = row.notacredito - row.notacredito;
                     var mermaFormatted = merma.toFixed(2);
                     if (merma < 0) {
                         return (
@@ -79,18 +92,13 @@ function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="20
                 data: null,
                 name: "pmerma",
                 render: function (data, type, row) {
-                    var merma = row.fisico - row.stock;
+                    var merma = row.notacredito - row.notacredito;
                     var invinicial = parseFloat(row.invinicial);
                     var compraLote = parseFloat(row.compraLote);
-                    var alistamiento = parseFloat(row.alistamiento);
                     var compensados = parseFloat(row.compensados);
                     var trasladoing = parseFloat(row.trasladoing);
                     var disponible =
-                        invinicial +
-                        compraLote +
-                        alistamiento +
-                        compensados +
-                        trasladoing;
+                        invinicial + compraLote + compensados + trasladoing;
                     var pmerma = (merma / disponible) * 100;
                     if (isNaN(pmerma) || !isFinite(pmerma)) {
                         pmerma = 0;
@@ -151,15 +159,6 @@ function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="20
                 }, 0)
                 .toFixed(2);
 
-            // Totalizar la columna "alistamiento"
-            var totalAlistamiento = api
-                .column("alistamiento:name", { search: "applied" })
-                .data()
-                .reduce(function (a, b) {
-                    return parseFloat(a) + parseFloat(b);
-                }, 0)
-                .toFixed(2);
-
             // Totalizar la columna "compensados"
             var totalCompensados = api
                 .column("compensados:name", { search: "applied" })
@@ -196,18 +195,18 @@ function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="20
                 }, 0)
                 .toFixed(2);
 
-            // Totalizar la columna "stock"
+            // Totalizar la columna "notacredito"
             var totalStock = api
-                .column("stock:name", { search: "applied" })
+                .column("notadebito:name", { search: "applied" })
                 .data()
                 .reduce(function (a, b) {
                     return parseFloat(a) + parseFloat(b);
                 }, 0)
                 .toFixed(2);
 
-            // Totalizar la columna "fisico"
+            // Totalizar la columna "notacredito"
             var totalFisico = api
-                .column("fisico:name", { search: "applied" })
+                .column("notacredito:name", { search: "applied" })
                 .data()
                 .reduce(function (a, b) {
                     return parseFloat(a) + parseFloat(b);
@@ -227,19 +226,23 @@ function initializeDataTable(centrocostoId = "-1", categoriaId = "-1",fechai="20
             // Agregar los valores totales en el footer
             $(api.column("invinicial:name").footer()).html(totalInvinicial);
             $(api.column("compraLote:name").footer()).html(totalCompraLote);
-            $(api.column("alistamiento:name").footer()).html(totalAlistamiento);
             $(api.column("compensados:name").footer()).html(totalCompensados);
             $(api.column("trasladoing:name").footer()).html(totalTrasladoing);
             $(api.column("trasladosal:name").footer()).html(totalTrasladosal);
             $(api.column("venta:name").footer()).html(totalVenta);
-            $(api.column("stock:name").footer()).html(totalStock);
-            $(api.column("fisico:name").footer()).html(totalFisico);
+            $(api.column("notadebito:name").footer()).html(totalStock);
+            $(api.column("notacredito:name").footer()).html(totalFisico);
             $(api.column("disponible:name").footer()).html(totalDisponible);
         },
     });
 }
 
-function cargarTotales(centrocostoId = "-1", categoriaId = "-1",fechai="2000-01-01", fechaf="2000-01-01") {
+function cargarTotales(
+    centrocostoId = "-1",
+    categoriaId = "-1",
+    fechai = "2000-01-01",
+    fechaf = "2000-01-01"
+) {
     $.ajax({
         type: "GET",
         url: "/totaleshistutilidad",
@@ -255,7 +258,6 @@ function cargarTotales(centrocostoId = "-1", categoriaId = "-1",fechai="2000-01-
             $("#totalInvInicial").html(data.totalInvInicial);
 
             $("#totalCompraLote").html(data.totalCompraLote);
-            $("#totalAlistamiento").html(data.totalAlistamiento);
             $("#totalCompensados").html(data.totalCompensados);
             $("#totalTrasladoing").html(data.totalTrasladoing);
 
@@ -266,7 +268,7 @@ function cargarTotales(centrocostoId = "-1", categoriaId = "-1",fechai="2000-01-
             $("#totalSalidas").html(data.totalSalidas);
 
             $("#totalConteoFisico").html(data.totalConteoFisico);
-            
+
             $("#diferenciaKilos").html(data.diferenciaKilos);
             $("#difKilosPermitidos").html(data.difKilosPermitidos);
             $("#porcMerma").html(data.porcMerma);
@@ -280,16 +282,22 @@ function cargarTotales(centrocostoId = "-1", categoriaId = "-1",fechai="2000-01-
 $(document).ready(function () {
     initializeDataTable("-1");
 
-    $("#centrocosto, #categoria,#fechainicial,#fechafinal").on("change", function () {
-        var centrocostoId = $("#centrocosto").val();
-        var categoriaId = $("#categoria").val();
-        var fechainicial = $("#fechainicial").val();
-        var fechafinal = $("#fechafinal").val();
+    $("#centrocosto, #categoria,#fechainicial,#fechafinal").on(
+        "change",
+        function () {
+            var centrocostoId = $("#centrocosto").val();
+            var categoriaId = $("#categoria").val();
+            var fechainicial = $("#fechainicial").val();
+            var fechafinal = $("#fechafinal").val();
 
-        dataTable.destroy();
-        initializeDataTable(centrocostoId, categoriaId,fechainicial,fechafinal);
-        cargarTotales(centrocostoId, categoriaId,fechainicial,fechafinal);
-    });
+            dataTable.destroy();
+            initializeDataTable(
+                centrocostoId,
+                categoriaId,
+                fechainicial,
+                fechafinal
+            );
+            cargarTotales(centrocostoId, categoriaId, fechainicial, fechafinal);
+        }
+    );
 });
-
-
