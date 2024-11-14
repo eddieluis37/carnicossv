@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\order\orderController;
 use App\Http\Livewire\AsignarController;
 use App\Http\Livewire\CoinsController;
 use App\Http\Livewire\PermisosController;
+use App\Http\Livewire\ProductsController;
 use App\Http\Livewire\ReportsController;
 use App\Http\Livewire\RolesController;
 use App\Http\Livewire\UsersController;
@@ -18,10 +20,17 @@ Route::group(['middleware' => ['role:Admin']], function () {
         Route::get('permisos', PermisosController::class);
         Route::get('asignar', AsignarController::class);
         Route::get('coins', CoinsController::class);
-      
+        Route::get('products', ProductsController::class);
+        Route::get('reports', ReportsController::class);
+        Route::get('orders', [orderController::class, 'index'])->name('order.index');
         
     });
 
+    Route::group(['middleware' => ['role:Comercial']], function () {
+		
+        Route::get('products', ProductsController::class);
+        
+    });
 
 
 
